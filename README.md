@@ -1,6 +1,6 @@
 # J-Card Template
-[Printable in-browser template](http://unixispower.github.io/jcard-template)
-for cassette tape J-Cards. This is a [Github Pages](https://pages.github.com/)
+[Printable in-browser template](http://www.blaines.world/jcard-template/) for
+cassette tape J-Cards. This is a [Github Pages](https://pages.github.com/)
 repository that utilizes
 [Jekyll](https://help.github.com/articles/about-github-pages-and-jekyll/) as a
 static web page build system. This repository is supplemental to the
