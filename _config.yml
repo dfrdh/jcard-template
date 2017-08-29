@@ -1,0 +1,17 @@
+# jekyll settings
+exclude:
+  - LICENSE
+  - README.md
+  - fonts/LICENSE
+sass:
+  sass_dir: styles
+  style: compressed
+
+
+# test server settings
+port: 8000
+host: 0.0.0.0
+
+
+# site variables
+repo: https://github.com/unixispower/jcard-template

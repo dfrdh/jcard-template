@@ -1,0 +1,142 @@
+/* styles for _layouts/jcard.html */
+
+
+/* J-Card template */
+.jcard {
+    /* printable template */
+    .card{
+        /* create new stacking context to contain crop marks */
+        position: relative;
+        z-index: 0;
+
+        width: 4.056in;
+        height: 4in;
+        margin: 0.25in auto;
+        padding: 0.1in;
+
+        font-family: "Alte Haas Grotesk", sans-serif;
+        text-transform: uppercase;
+        line-height: 1.1;
+
+        background-color: #fff;
+
+        /* minimal margins when printing */
+        @media print { margin: 0.15in; }
+
+        /* common styles */
+        .title {
+            font-weight: bold;
+        }
+
+        /* cut and fold markings */
+        .crop-marks {
+            position: absolute;
+            top: 0.1in;
+            right: 0.1in;
+            bottom: 0.1in;
+            left: 0.1in;
+        }
+        .vert-fold-mark {
+            position: absolute;
+            top: 0.1in;
+            bottom: 0.1in;
+
+            &.one { left: 1.1in; }
+            &.two { left: 1.6in; }
+        }
+
+        /* align panels of the card */
+        .back, .spine, .front {
+            position: absolute;
+            overflow: hidden;
+        }
+
+        /* back panel */
+        .back {
+            display: flex;
+            flex-flow: column nowrap;
+            align-items: center;
+            justify-content: center;
+
+            width: 4in;
+            height: 1in;
+
+            transform: translateY(-1in) rotate(90deg);
+            transform-origin: bottom left;
+
+            font-size: 8pt;
+            text-align: center;
+
+            .top, .bottom {
+                margin-left: 0.5in;
+                margin-right: 0.5in;
+            }
+            .top {
+                margin-bottom: 0.5em;
+            }
+        }
+
+        /* spine panel */
+        .spine {
+            display: flex;
+            flex-flow: row nowrap;
+            align-items: center;
+            justify-content: space-between;
+
+            transform: translate(1in, -0.5in) rotate(90deg);
+            transform-origin: bottom left;
+
+            width: 4in;
+            height: 0.5in;
+
+            .left, .right {
+                flex-grow: 1;
+                margin-bottom: 0.1em;
+            }
+            .left {
+                margin-left: 0.15in;
+            }
+            .right {
+                margin-right: 0.15in;
+                text-align: right;
+            }
+        }
+
+        /* front panel */
+        .front {
+            width: 2.556in;
+            height: 4in;
+
+            left: 1.6in;
+
+            .cover {
+                display: block;
+                width: 2.556in;
+                height: 2.556in;
+                background: white;
+                object-fit: cover;
+            }
+            .bottom {
+                display: flex;
+                flex-flow: column nowrap;
+                align-items: stretch;
+                justify-content: space-between;
+                text-align: center;
+
+                height: calc(1.344in);
+                margin: 0.05in 0.1in;
+
+                .title, .type {
+                    flex-shrink: 0;
+                }
+                .tracks {
+                    font-size: 9pt;
+                    line-height: 1.2;
+                }
+                .type {
+                    font-size: 8pt;
+                }
+            }
+        }
+    }
+}
