@@ -1,86 +1,84 @@
 ---
 layout: base
 ---
-<article class="jcard">
+<article id="jcard">
     <header class="noprint">
         <h1>{{ page.title }}</h1>
     </header>
-    <div id="card" class="card">
+    <div class="card">
         <div class="crop-marks"></div>
         <div class="vert-fold-mark one"></div>
         <div class="vert-fold-mark two"></div>
         <div class="back">
-            <div class="top">
-                <div class="title">Side A</div>
-                <div id="side-a"></div>
+            <div class="side-a">
+                <div class="label">Side A</div>
+                <div class="tracks"></div>
             </div>
-            <div class="bottom">
-                <div class="title" contenteditable="true">Side B</div>
-                <div id="side-b"></div>
+            <div class="side-b">
+                <div class="label">Side B</div>
+                <div class="tracks"></div>
             </div>
         </div>
         <div class="spine">
             <div class="left">
-                <div class="title">
-                    <div id="spine-title"></div>
-                    <div id="spine-subtitle"></div>
-                </div>
+                <div class="title"></div>
+                <div class="subtitle"></div>
             </div>
             <div class="right">
-                <div id="note-top"></div>
-                <div id="note-bottom"></div>
+                <div class="note-top"></div>
+                <div class="note-bottom"></div>
             </div>
         </div>
         <div class="front">
-            <img id="cover" class="cover" src="{{ page.jcard.cover }}" alt="Cover image" />
+            <img class="cover" src="{{ page.jcard.cover }}" alt="Cover image" />
             <div class="bottom">
-                <div class="title">
-                    <div id="front-title"></div>
-                    <div id="front-subtitle"></div>
+                <div class="title-group">
+                    <div class="title"></div>
+                    <div class="subtitle"></div>
                 </div>
-                <div id="tracks" class="tracks"></div>
-                <div id="type" class="type"></div>
+                <div class="tracks"></div>
+                <div class="type"></div>
             </div>
         </div>
     </div>
     <div class="noprint">
         <h2>Instructions</h2>
         <p>Fill out the form below to update the template. Print this page from your browser when you are done.</p>
-        <form>
+        <form class="options">
             <h2>Options</h2>
             <div>
-                <label for="color-field">Colors</label>
-                <input id="card-color-field" type="color" value="{{ page.jcard.card_color }}"
-                /><input id="text-color-field" type="color" value="{{ page.jcard.text_color }}" />
+                <label>Colors</label>
+                <input class="card-color" type="color" value="{{ page.jcard.card_color }}"
+                /><input class="text-color" type="color" value="{{ page.jcard.text_color }}" />
             </div>
             <div>
-                <label for="cover-field">Cover</label>
-                <input id="cover-field" type="file" />
+                <label>Cover</label>
+                <input class="cover" type="file" />
             </div>
             <div>
-                <label for="title-field">Title</label>
-                <input id="title-field" type="text" value="{{ page.jcard.title }}" />
+                <label>Title</label>
+                <input class="title" type="text" value="{{ page.jcard.title }}" />
             </div>
             <div>
-                <label for="subtitle-field">Subtitle</label>
-                <input id="subtitle-field" type="text" value="{{ page.jcard.subtitle }}" />
+                <label>Subtitle</label>
+                <input class="subtitle" type="text" value="{{ page.jcard.subtitle }}" />
             </div>
             <div>
-                <label for="note-top-field">Note</label>
-                <input id="note-top-field" class="narrow" type="text" value="{{ page.jcard.note_top }}"
-                /><input id="note-bottom-field" class="narrow" type="text" value="{{ page.jcard.note_bottom }}" />
+                <label>Note</label>
+                <input class="note-top narrow" type="text" value="{{ page.jcard.note_top }}"
+                /><input class="note-bottom narrow" type="text" value="{{ page.jcard.note_bottom }}" />
             </div>
             <div>
-                <label for="type-field">Type</label>
-                <input id="type-field" type="text" value="{{ page.jcard.type }}" />
+                <label>Type</label>
+                <input class="type" type="text" value="{{ page.jcard.type }}" />
             </div>
             <div>
-                <label for="side-a-field">Side A</label>
-                <textarea id="side-a-field">{{ page.jcard.side_a | join: '&#10;' }}</textarea>
+                <label>Side A</label>
+                <textarea class="side-a">{{ page.jcard.side_a | join: '&#10;' }}</textarea>
             </div>
             <div>
-                <label for="side-b-field">Side B</label>
-                <textarea id="side-b-field">{{ page.jcard.side_b | join: '&#10;' }}</textarea>
+                <label>Side B</label>
+                <textarea class="side-b">{{ page.jcard.side_b | join: '&#10;' }}</textarea>
             </div>
         </form>
     </div>    
@@ -88,10 +86,7 @@ layout: base
 <script>
     (function() {
         //
-        function attachColorListener(inputId, outputId, styleProperty) {
-            var inputElement = document.getElementById(inputId);
-            var outputElement = document.getElementById(outputId);
-    
+        function attachColorListener(inputElement, outputElement, styleProperty) {
             function update() {
                 outputElement.style[styleProperty] = inputElement.value;
             }
@@ -101,21 +96,14 @@ layout: base
         }
 
         //
-        function attachImageListener(inputId, outputId) {
-            var inputElement = document.getElementById(inputId);
-            var outputElement = document.getElementById(outputId);
-
+        function attachImageListener(inputElement, outputElement) {
             inputElement.addEventListener("change", function(event) {
                 outputElement.src = URL.createObjectURL(inputElement.files[0]);
             });
         }
 
         // 
-        function attachInputListener(inputId, outputIds) {
-            var inputElement = document.getElementById(inputId);
-            var outputElements = outputIds.map(
-                document.getElementById.bind(document));
-
+        function attachInputListener(inputElement, outputElements) {
             function update() {
                 outputElements.forEach(function(element) {
                     element.innerHTML = inputElement.value;
@@ -127,11 +115,7 @@ layout: base
         }
 
         //
-        function attachTrackListener(inputIds, outputIds, trackId, separator) {
-            var inputElements = inputIds.map(document.getElementById.bind(document));
-            var outputElements = outputIds.map(document.getElementById.bind(document));
-            var trackElement = document.getElementById(trackId);
-
+        function attachTrackListener(inputElements, outputElements, trackElement, separator) {
             function update() {
                 var sides = inputElements.map(function(element, index) {
                     var tracks = element.value.replace(/\n/g, separator);
@@ -147,29 +131,57 @@ layout: base
             return update;
         }
 
+
+        var jcardElement = document.getElementById('jcard');
+
         // colors
         var updateCardColor = attachColorListener(
-            'card-color-field', 'card', 'backgroundColor');
+            jcardElement.querySelector('.options .card-color'),
+            jcardElement.querySelector('.card'), 'backgroundColor');
         var updateTextColor = attachColorListener(
-            'text-color-field', 'card', 'color');
+            jcardElement.querySelector('.options .text-color'),
+            jcardElement.querySelector('.card'), 'color');
 
         // cover image
-        attachImageListener('cover-field', 'cover');
+        attachImageListener(
+            jcardElement.querySelector('.options .cover'),
+            jcardElement.querySelector('.card .cover'));
 
         // simple text fields
         var updateTitle = attachInputListener(
-            'title-field', ['front-title', 'spine-title']);
+            jcardElement.querySelector('.options .title'), [
+                jcardElement.querySelector('.card .front .title'),
+                jcardElement.querySelector('.card .spine .title')
+        ]);
         var updateSubtitle = attachInputListener(
-            'subtitle-field', ['front-subtitle', 'spine-subtitle']);
+            jcardElement.querySelector('.options .subtitle'), [
+                jcardElement.querySelector('.card .front .subtitle'),
+                jcardElement.querySelector('.card .spine .subtitle')
+        ]);
         var updateNoteTop = attachInputListener(
-            'note-top-field', ['note-top']);
+            jcardElement.querySelector('.options .note-top'),
+            [jcardElement.querySelector('.card .note-top')]
+        );
         var updateNoteBottom = attachInputListener(
-            'note-bottom-field', ['note-bottom']);
-        var updateType = attachInputListener('type-field', ['type']);
+            jcardElement.querySelector('.options .note-bottom'),
+            [jcardElement.querySelector('.card .note-bottom')]
+        );
+        var updateType = attachInputListener(
+            jcardElement.querySelector('.options .type'),
+            [jcardElement.querySelector('.card .type')]
+        );
 
         // track fields
-        var updateTracks = attachTrackListener(
-            ['side-a-field', 'side-b-field'], ['side-a', 'side-b'], 'tracks', '&nbsp;• ');
+        var updateTracks = attachTrackListener([
+                jcardElement.querySelector('.options .side-a'),
+                jcardElement.querySelector('.options .side-b')
+            ], [
+                jcardElement.querySelector('.card .side-a .tracks'),
+                jcardElement.querySelector('.card .side-b .tracks')
+            ],
+            jcardElement.querySelector('.card .front .tracks'),
+            '&nbsp;• ');
+
 
         // initialize template
         updateCardColor();

@@ -2,7 +2,7 @@
 
 
 /* J-Card template */
-.jcard {
+#jcard {
     /* printable template */
     .card{
         /* create new stacking context to contain crop marks */
@@ -24,7 +24,7 @@
         @media print { margin: 0.15in; }
 
         /* common styles */
-        .title {
+        .title, .subtitle, .label {
             font-weight: bold;
         }
 
@@ -67,13 +67,11 @@
             font-size: 8pt;
             text-align: center;
 
-            .top, .bottom {
+            .side-a, .side-b {
                 margin-left: 0.5in;
                 margin-right: 0.5in;
             }
-            .top {
-                margin-bottom: 0.5em;
-            }
+            .side-a { margin-bottom: 0.5em; }
         }
 
         /* spine panel */
@@ -126,7 +124,7 @@
                 height: calc(1.344in);
                 margin: 0.05in 0.1in;
 
-                .title, .type {
+                .title-group, .type {
                     flex-shrink: 0;
                 }
                 .tracks {
