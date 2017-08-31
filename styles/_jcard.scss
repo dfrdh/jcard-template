@@ -55,6 +55,7 @@ $short-back-height: 0.6in;
                 top: $bleed;
                 bottom: $bleed;
             }
+//TODO change to right:
             .fold-1 { right: $card-width + $bleed - 1in; }
             .fold-2 { right: $card-width + $bleed - 1.5in; }
         }
