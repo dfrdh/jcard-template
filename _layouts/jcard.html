@@ -6,9 +6,11 @@ layout: base
         <h1>{{ page.title }}</h1>
     </header>
     <div class="card">
-        <div class="crop-marks"></div>
-        <div class="vert-fold-mark one"></div>
-        <div class="vert-fold-mark two"></div>
+        <div class="bleed">
+            <div class="crop-marks"></div>
+            <div class="fold-1 vert-fold-mark"></div>
+            <div class="fold-2 vert-fold-mark"></div>
+        </div>
         <div class="back">
             <div class="side-a">
                 <div class="label">Side A</div>
@@ -56,6 +58,10 @@ layout: base
                 <input class="cover" type="file" />
             </div>
             <div>
+                <label>Short Back</label>
+                <input class="short-back" type="checkbox" />
+            </div>
+            <div>
                 <label>Title</label>
                 <input class="title" type="text" value="{{ page.jcard.title }}" />
             </div>
@@ -86,7 +92,7 @@ layout: base
 <script>
     (function() {
         //
-        function attachColorListener(inputElement, outputElement, styleProperty) {
+        function addColorListener(inputElement, outputElement, styleProperty) {
             function update() {
                 outputElement.style[styleProperty] = inputElement.value;
             }
@@ -96,14 +102,31 @@ layout: base
         }
 
         //
-        function attachImageListener(inputElement, outputElement) {
+        function addImageListener(inputElement, outputElement) {
             inputElement.addEventListener("change", function(event) {
                 outputElement.src = URL.createObjectURL(inputElement.files[0]);
             });
         }
 
+        //
+        function addCheckboxListener(inputElement, outputElements, toggleClass) {
+            function update() {
+                var enabled = inputElement.checked;
+                outputElements.forEach(function(element) {
+                    if (enabled) {
+                        element.classList.add(toggleClass);
+                    } else {
+                        element.classList.remove(toggleClass);
+                    }
+                });
+            }
+
+            inputElement.addEventListener("change", update);
+            return update;
+        }
+
         // 
-        function attachInputListener(inputElement, outputElements) {
+        function addInputListener(inputElement, outputElements) {
             function update() {
                 outputElements.forEach(function(element) {
                     element.innerHTML = inputElement.value;
@@ -115,7 +138,7 @@ layout: base
         }
 
         //
-        function attachTrackListener(inputElements, outputElements, trackElement, separator) {
+        function addTrackListener(inputElements, outputElements, trackElement, separator) {
             function update() {
                 var sides = inputElements.map(function(element, index) {
                     var tracks = element.value.replace(/\n/g, separator);
@@ -135,44 +158,51 @@ layout: base
         var jcardElement = document.getElementById('jcard');
 
         // colors
-        var updateCardColor = attachColorListener(
+        var updateCardColor = addColorListener(
             jcardElement.querySelector('.options .card-color'),
-            jcardElement.querySelector('.card'), 'backgroundColor');
-        var updateTextColor = attachColorListener(
+            jcardElement.querySelector('.bleed'), 'backgroundColor');
+        var updateTextColor = addColorListener(
             jcardElement.querySelector('.options .text-color'),
             jcardElement.querySelector('.card'), 'color');
 
         // cover image
-        attachImageListener(
+        addImageListener(
             jcardElement.querySelector('.options .cover'),
             jcardElement.querySelector('.card .cover'));
 
+        // short back
+        var updateShortBack = addCheckboxListener(
+            jcardElement.querySelector('.options .short-back'), [
+                jcardElement.querySelector('.card .bleed'),
+                jcardElement.querySelector('.card .back')
+            ], 'short');
+
         // simple text fields
-        var updateTitle = attachInputListener(
+        var updateTitle = addInputListener(
             jcardElement.querySelector('.options .title'), [
                 jcardElement.querySelector('.card .front .title'),
                 jcardElement.querySelector('.card .spine .title')
         ]);
-        var updateSubtitle = attachInputListener(
+        var updateSubtitle = addInputListener(
             jcardElement.querySelector('.options .subtitle'), [
                 jcardElement.querySelector('.card .front .subtitle'),
                 jcardElement.querySelector('.card .spine .subtitle')
         ]);
-        var updateNoteTop = attachInputListener(
+        var updateNoteTop = addInputListener(
             jcardElement.querySelector('.options .note-top'),
             [jcardElement.querySelector('.card .note-top')]
         );
-        var updateNoteBottom = attachInputListener(
+        var updateNoteBottom = addInputListener(
             jcardElement.querySelector('.options .note-bottom'),
             [jcardElement.querySelector('.card .note-bottom')]
         );
-        var updateType = attachInputListener(
+        var updateType = addInputListener(
             jcardElement.querySelector('.options .type'),
             [jcardElement.querySelector('.card .type')]
         );
 
         // track fields
-        var updateTracks = attachTrackListener([
+        var updateTracks = addTrackListener([
                 jcardElement.querySelector('.options .side-a'),
                 jcardElement.querySelector('.options .side-b')
             ], [
@@ -186,6 +216,7 @@ layout: base
         // initialize template
         updateCardColor();
         updateTextColor();
+        updateShortBack();
         updateTitle();
         updateSubtitle();
         updateNoteTop();

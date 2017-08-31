@@ -1,7 +1,7 @@
 /* styles for _layouts/base.html */
 
 // site
-$column_width: 600px;
+$column-width: 600px;
 
 // body
 $background-color: #fff;
@@ -55,10 +55,16 @@ form {
         width: 100px;
         padding-right: 0.5em;
         text-align: right;
+        vertical-align: top;
     }
     label, input, textarea {
         margin: 0.125em 0;
-        vertical-align: top;
+    }
+    input, textarea {
+        vertical-align: middle;
+    }
+    input[type=checkbox] {
+        vertical-align: text-bottom;
     }
     input[type=text], textarea {
         width: 300px;
@@ -78,7 +84,7 @@ form {
 
 /* content */
 #column {
-    width: $column_width;
+    width: $column-width;
     margin: 0 auto;
 
     @media print { margin: 0; }

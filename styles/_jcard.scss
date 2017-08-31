@@ -1,48 +1,62 @@
 /* styles for _layouts/jcard.html */
 
+$card-width: 4.056in;
+$card-height: 4in;
+$bleed: 0.1in;
+$side-margin: 0.15in;
+$short-back-height: 0.6in;
 
 /* J-Card template */
 #jcard {
-    /* printable template */
-    .card{
-        /* create new stacking context to contain crop marks */
+    /* */
+    .card {
         position: relative;
-        z-index: 0;
-
-        width: 4.056in;
-        height: 4in;
-        margin: 0.25in auto;
-        padding: 0.1in;
+        width: $card-width;
+        height: $card-height;
+        margin: (4 * $bleed) auto;
 
         font-family: "Alte Haas Grotesk", sans-serif;
         text-transform: uppercase;
         line-height: 1.1;
 
-        background-color: #fff;
-
         /* minimal margins when printing */
-        @media print { margin: 0.15in; }
+        @media print { margin: 2 * $bleed; }
 
         /* common styles */
         .title, .subtitle, .label {
             font-weight: bold;
         }
 
-        /* cut and fold markings */
-        .crop-marks {
+        /*  */
+        .bleed {
+            /* create new stacking context to contain crop marks */
             position: absolute;
-            top: 0.1in;
-            right: 0.1in;
-            bottom: 0.1in;
-            left: 0.1in;
-        }
-        .vert-fold-mark {
-            position: absolute;
-            top: 0.1in;
-            bottom: 0.1in;
+            z-index: 0;
 
-            &.one { left: 1.1in; }
-            &.two { left: 1.6in; }
+            top: -$bleed;
+            right: -$bleed;
+            bottom: -$bleed;
+            left: -$bleed;
+
+            &.short {
+                left: 1in - $short-back-height - $bleed
+            }
+
+            .crop-marks {
+                position: absolute;
+                top: $bleed;
+                right: $bleed;
+                bottom: $bleed;
+                left: $bleed;
+            }
+
+            .fold-1, .fold-2 {
+                position: absolute;
+                top: $bleed;
+                bottom: $bleed;
+            }
+            .fold-1 { right: $card-width + $bleed - 1in; }
+            .fold-2 { right: $card-width + $bleed - 1.5in; }
         }
 
         /* align panels of the card */
@@ -58,20 +72,45 @@
             align-items: center;
             justify-content: center;
 
-            width: 4in;
+            width: $card-height;
             height: 1in;
 
-            transform: translateY(-1in) rotate(90deg);
+            transform:
+                translateY(-1in)
+                rotate(90deg);
             transform-origin: bottom left;
 
             font-size: 8pt;
             text-align: center;
 
             .side-a, .side-b {
-                margin-left: 0.5in;
-                margin-right: 0.5in;
+                margin: 0 $side-margin;
             }
             .side-a { margin-bottom: 0.5em; }
+
+            /* rearrange back panel for blank style boxes */
+            &.short {
+                flex-flow: row nowrap;
+                justify-content: space-between;
+
+                height: $short-back-height;
+                transform:
+                    translateY(-$short-back-height)
+                    rotate(90deg)
+                    translateY($short-back-height - 1in);
+
+                text-align: left;
+
+                .side-a, .side-b { width: calc(50% - 1.5 * $side-margin); }
+                .side-a { margin: 0 ($side-margin / 2) 0 $side-margin; }
+                .side-b { margin: 0 $side-margin 0 ($side-margin / 2) ; }
+
+                .label, .tracks { display: inline; }
+                .label:after {
+                    content: ":";
+                    margin-right: 0.5em;
+                }
+            }
         }
 
         /* spine panel */
@@ -81,10 +120,12 @@
             align-items: center;
             justify-content: space-between;
 
-            transform: translate(1in, -0.5in) rotate(90deg);
+            transform:
+                translate(1in, -0.5in)
+                rotate(90deg);
             transform-origin: bottom left;
 
-            width: 4in;
+            width: $card-height;
             height: 0.5in;
 
             .left, .right {
@@ -92,25 +133,28 @@
                 margin-bottom: 0.1em;
             }
             .left {
-                margin-left: 0.15in;
+                margin-left: $side-margin;
             }
             .right {
-                margin-right: 0.15in;
+                margin-right: $side-margin;
                 text-align: right;
             }
         }
 
         /* front panel */
         .front {
-            width: 2.556in;
-            height: 4in;
+            $front-offset: 1.5in;
+            $front-width: $card-width - $front-offset;
 
-            left: 1.6in;
+            width: $front-width;
+            height: $card-height;
+
+            left: $front-offset;
 
             .cover {
                 display: block;
-                width: 2.556in;
-                height: 2.556in;
+                width: $front-width;
+                height: $front-width;
                 background: white;
                 object-fit: cover;
             }
@@ -121,8 +165,8 @@
                 justify-content: space-between;
                 text-align: center;
 
-                height: calc(1.344in);
-                margin: 0.05in 0.1in;
+                height: $card-height - $front-width - 0.1in;
+                margin: 0.05in $side-margin;
 
                 .title-group, .type {
                     flex-shrink: 0;
