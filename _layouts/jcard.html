@@ -22,18 +22,18 @@ layout: base
             </div>
         </div>
         <div class="spine">
-            <div class="left">
+            <div class="title-group">
                 <div class="title"></div>
                 <div class="subtitle"></div>
             </div>
-            <div class="right">
+            <div class="note-group">
                 <div class="note-top"></div>
                 <div class="note-bottom"></div>
             </div>
         </div>
         <div class="front">
             <img class="cover" src="{{ page.jcard.cover }}" alt="Cover image" />
-            <div class="bottom">
+            <div class="info-group">
                 <div class="title-group">
                     <div class="title"></div>
                     <div class="subtitle"></div>
@@ -46,51 +46,89 @@ layout: base
     <div class="noprint">
         <h2>Instructions</h2>
         <p>Fill out the form below to update the template. Print this page from your browser when you are done.</p>
+        <h2>Options</h2>
         <form class="options">
-            <h2>Options</h2>
-            <div>
-                <label>Colors</label>
-                <input class="card-color" type="color" value="{{ page.jcard.card_color }}"
-                /><input class="text-color" type="color" value="{{ page.jcard.text_color }}" />
-            </div>
-            <div>
-                <label>Cover</label>
-                <input class="cover" type="file" />
-            </div>
-            <div>
-                <label>Short Back</label>
-                <input class="short-back" type="checkbox" />
-            </div>
-            <div>
-                <label>Title</label>
-                <input class="title" type="text" value="{{ page.jcard.title }}" />
-            </div>
-            <div>
-                <label>Subtitle</label>
-                <input class="subtitle" type="text" value="{{ page.jcard.subtitle }}" />
-            </div>
-            <div>
-                <label>Note</label>
-                <input class="note-top narrow" type="text" value="{{ page.jcard.note_top }}"
-                /><input class="note-bottom narrow" type="text" value="{{ page.jcard.note_bottom }}" />
-            </div>
-            <div>
-                <label>Type</label>
-                <input class="type" type="text" value="{{ page.jcard.type }}" />
-            </div>
-            <div>
-                <label>Side A</label>
-                <textarea class="side-a">{{ page.jcard.side_a | join: '&#10;' }}</textarea>
-            </div>
-            <div>
-                <label>Side B</label>
-                <textarea class="side-b">{{ page.jcard.side_b | join: '&#10;' }}</textarea>
-            </div>
+            <fieldset>
+                <legend>Layout</legend>
+                <div>
+                    <label>Title Size</label>
+                    <input class="title-size" type="number" value="12" step="0.1" />
+                </div>
+                <div>
+                    <label>Note Size</label>
+                    <input class="note-size" type="number" value="12" step="0.1" />
+                </div>
+                <div>
+                    <label>Track Size</label>
+                    <input class="track-size" type="number" value="9" step="0.1" />
+                </div>
+                <div>
+                    <label>Back Size</label>
+                    <input class="back-size" type="number" value="8" step="0.1" />
+                </div>
+                <div>
+                    <label>Type Size</label>
+                    <input class="type-size" type="number" value="8" step="0.1" />
+                </div>
+                <div>
+                    <label>Short Back</label>
+                    <input class="short-back" type="checkbox" />
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Content</legend>
+                <div>
+                    <label>Colors</label>
+                    <input class="card-color" type="color" value="{{ page.jcard.card_color }}"
+                    /><input class="text-color" type="color" value="{{ page.jcard.text_color }}" />
+                </div>
+                <div>
+                    <label>Cover</label>
+                    <input class="cover" type="file" />
+                </div>
+                <div>
+                    <label>Title</label>
+                    <input class="title" type="text" value="{{ page.jcard.title }}" />
+                </div>
+                <div>
+                    <label>Subtitle</label>
+                    <input class="subtitle" type="text" value="{{ page.jcard.subtitle }}" />
+                </div>
+                <div>
+                    <label>Note</label>
+                    <input class="note-top narrow" type="text" value="{{ page.jcard.note_top }}"
+                    /><input class="note-bottom narrow" type="text" value="{{ page.jcard.note_bottom }}" />
+                </div>
+                <div>
+                    <label>Type</label>
+                    <input class="type" type="text" value="{{ page.jcard.type }}" />
+                </div>
+                <div>
+                    <label>Side A</label>
+                    <textarea class="side-a">{{ page.jcard.side_a | join: '&#10;' }}</textarea>
+                </div>
+                <div>
+                    <label>Side B</label>
+                    <textarea class="side-b">{{ page.jcard.side_b | join: '&#10;' }}</textarea>
+                </div>
+            </fieldset>
         </form>
     </div>    
 </article>
 <script>
     (function() {
+        // 
+        function addSizeListener(inputElement, outputElements) {
+            function update() {
+                outputElements.forEach(function(element) {
+                    element.style.fontSize = inputElement.value + 'pt';
+                });
+            }
+
+            inputElement.addEventListener("input", update);
+            update();
+        }
+
         //
         function addColorListener(inputElement, outputElement, styleProperty) {
             function update() {
@@ -98,7 +136,7 @@ layout: base
             }
 
             inputElement.addEventListener("input", update);
-            return update;
+            update();
         }
 
         //
@@ -122,7 +160,7 @@ layout: base
             }
 
             inputElement.addEventListener("change", update);
-            return update;
+            update();
         }
 
         // 
@@ -134,7 +172,7 @@ layout: base
             }
 
             inputElement.addEventListener("input", update);
-            return update;
+            update();
         }
 
         //
@@ -151,17 +189,54 @@ layout: base
             inputElements.forEach(function(element) {
                 element.addEventListener("input", update);
             });
-            return update;
+            update();
         }
 
 
         var jcardElement = document.getElementById('jcard');
 
+        // short back
+        addCheckboxListener(
+            jcardElement.querySelector('.options .short-back'), [
+                jcardElement.querySelector('.card .bleed'),
+                jcardElement.querySelector('.card .back')
+            ], 'short');
+
+        // title size
+        addSizeListener(
+            jcardElement.querySelector('.options .title-size'), [
+                jcardElement.querySelector('.card .front .title-group'),
+                jcardElement.querySelector('.card .spine .title-group')
+            ]);
+
+        // note size
+        addSizeListener(
+            jcardElement.querySelector('.options .note-size'),
+            [jcardElement.querySelector('.card .spine .note-group')]);
+
+        // track size
+        addSizeListener(
+            jcardElement.querySelector('.options .track-size'),
+            [jcardElement.querySelector('.card .front .tracks')]);
+
+        // type size
+        addSizeListener(
+            jcardElement.querySelector('.options .type-size'),
+            [jcardElement.querySelector('.card .front .type')]);
+
+        // back size
+        addSizeListener(
+            jcardElement.querySelector('.options .back-size'), [
+                jcardElement.querySelector('.card .back .side-a'),
+                jcardElement.querySelector('.card .back .side-b')
+            ]);
+
+
         // colors
-        var updateCardColor = addColorListener(
+        addColorListener(
             jcardElement.querySelector('.options .card-color'),
             jcardElement.querySelector('.bleed'), 'backgroundColor');
-        var updateTextColor = addColorListener(
+        addColorListener(
             jcardElement.querySelector('.options .text-color'),
             jcardElement.querySelector('.card'), 'color');
 
@@ -170,39 +245,40 @@ layout: base
             jcardElement.querySelector('.options .cover'),
             jcardElement.querySelector('.card .cover'));
 
-        // short back
-        var updateShortBack = addCheckboxListener(
-            jcardElement.querySelector('.options .short-back'), [
-                jcardElement.querySelector('.card .bleed'),
-                jcardElement.querySelector('.card .back')
-            ], 'short');
-
-        // simple text fields
-        var updateTitle = addInputListener(
+        // title
+        addInputListener(
             jcardElement.querySelector('.options .title'), [
                 jcardElement.querySelector('.card .front .title'),
                 jcardElement.querySelector('.card .spine .title')
         ]);
-        var updateSubtitle = addInputListener(
+
+        // subtitle
+        addInputListener(
             jcardElement.querySelector('.options .subtitle'), [
                 jcardElement.querySelector('.card .front .subtitle'),
                 jcardElement.querySelector('.card .spine .subtitle')
         ]);
-        var updateNoteTop = addInputListener(
+
+        // note top
+        addInputListener(
             jcardElement.querySelector('.options .note-top'),
             [jcardElement.querySelector('.card .note-top')]
         );
-        var updateNoteBottom = addInputListener(
+
+        // note bottom
+        addInputListener(
             jcardElement.querySelector('.options .note-bottom'),
             [jcardElement.querySelector('.card .note-bottom')]
         );
-        var updateType = addInputListener(
+
+        // type
+        addInputListener(
             jcardElement.querySelector('.options .type'),
             [jcardElement.querySelector('.card .type')]
         );
 
         // track fields
-        var updateTracks = addTrackListener([
+        addTrackListener([
                 jcardElement.querySelector('.options .side-a'),
                 jcardElement.querySelector('.options .side-b')
             ], [
@@ -211,17 +287,5 @@ layout: base
             ],
             jcardElement.querySelector('.card .front .tracks'),
             '&nbsp;• ');
-
-
-        // initialize template
-        updateCardColor();
-        updateTextColor();
-        updateShortBack();
-        updateTitle();
-        updateSubtitle();
-        updateNoteTop();
-        updateNoteBottom();
-        updateType();
-        updateTracks();
     })();
 </script>

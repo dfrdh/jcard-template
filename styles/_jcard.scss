@@ -55,7 +55,6 @@ $short-back-height: 0.6in;
                 top: $bleed;
                 bottom: $bleed;
             }
-//TODO change to right:
             .fold-1 { right: $card-width + $bleed - 1in; }
             .fold-2 { right: $card-width + $bleed - 1.5in; }
         }
@@ -81,7 +80,6 @@ $short-back-height: 0.6in;
                 rotate(90deg);
             transform-origin: bottom left;
 
-            font-size: 8pt;
             text-align: center;
 
             .side-a, .side-b {
@@ -129,14 +127,14 @@ $short-back-height: 0.6in;
             width: $card-height;
             height: 0.5in;
 
-            .left, .right {
+            .title-group, .note-group {
                 flex-grow: 1;
                 margin-bottom: 0.1em;
             }
-            .left {
+            .title-group {
                 margin-left: $side-margin;
             }
-            .right {
+            .note-group {
                 margin-right: $side-margin;
                 text-align: right;
             }
@@ -159,7 +157,7 @@ $short-back-height: 0.6in;
                 background: white;
                 object-fit: cover;
             }
-            .bottom {
+            .info-group {
                 display: flex;
                 flex-flow: column nowrap;
                 align-items: stretch;
@@ -172,13 +170,7 @@ $short-back-height: 0.6in;
                 .title-group, .type {
                     flex-shrink: 0;
                 }
-                .tracks {
-                    font-size: 9pt;
-                    line-height: 1.2;
-                }
-                .type {
-                    font-size: 8pt;
-                }
+                .tracks { line-height: 1.2; }
             }
         }
     }

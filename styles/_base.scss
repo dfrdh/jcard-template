@@ -10,6 +10,9 @@ $text-font: "Alte Haas Grotesk", sans-serif;
 $text-line-height: 1.3;
 $link-color: #00f;
 
+// misc
+$border-color: #999;
+
 
 /* import fonts */
 @mixin font-face($family, $filename, $weight: normal, $style: normal) {
@@ -31,7 +34,6 @@ body {
 
     font-family: "Alte Haaas Grotesk", sans-serif;
     line-height: $text-line-height;
-    font-size: 12pt;
 
     -webkit-print-color-adjust: exact;
 
@@ -50,6 +52,14 @@ h1, h2 {
 }
 
 form {
+    fieldset {
+        border: 1px solid $border-color;
+        margin: 0 0 0.5em;
+        padding: 0.5em;
+    }
+    legend {
+        font-weight: bold;
+    }
     label {
         display: inline-block;
         width: 100px;
@@ -66,12 +76,19 @@ form {
     input[type=checkbox] {
         vertical-align: text-bottom;
     }
+    input[type=text], input[type=number], textarea {
+        padding: 0.125em;
+        border: 1px solid $border-color;
+    }
+    input[type=number] {
+        width: 100px;
+    }
     input[type=text], textarea {
-        width: 300px;
+        width: 350px;
 
         &.narrow {
-            width: 146px;
-            margin-right: 4px;
+            width: calc(175px - 0.325em);
+            margin-right: 0.25em;
         }
     }
     textarea {
