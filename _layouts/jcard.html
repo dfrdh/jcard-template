@@ -55,20 +55,20 @@ layout: base
                     <input class="title-size" type="number" value="12" step="0.1" />
                 </div>
                 <div>
-                    <label>Note Size</label>
-                    <input class="note-size" type="number" value="12" step="0.1" />
-                </div>
-                <div>
                     <label>Track Size</label>
                     <input class="track-size" type="number" value="9" step="0.1" />
                 </div>
                 <div>
-                    <label>Back Size</label>
-                    <input class="back-size" type="number" value="8" step="0.1" />
+                    <label>Type Size</label>
+                    <input class="type-size" type="number" value="10" step="0.1" />
                 </div>
                 <div>
-                    <label>Type Size</label>
-                    <input class="type-size" type="number" value="8" step="0.1" />
+                    <label>Note Size</label>
+                    <input class="note-size" type="number" value="10" step="0.1" />
+                </div>
+                <div>
+                    <label>Back Size</label>
+                    <input class="back-size" type="number" value="8" step="0.1" />
                 </div>
                 <div>
                     <label>Short Back</label>
@@ -195,24 +195,12 @@ layout: base
 
         var jcardElement = document.getElementById('jcard');
 
-        // short back
-        addCheckboxListener(
-            jcardElement.querySelector('.options .short-back'), [
-                jcardElement.querySelector('.card .bleed'),
-                jcardElement.querySelector('.card .back')
-            ], 'short');
-
         // title size
         addSizeListener(
             jcardElement.querySelector('.options .title-size'), [
                 jcardElement.querySelector('.card .front .title-group'),
                 jcardElement.querySelector('.card .spine .title-group')
             ]);
-
-        // note size
-        addSizeListener(
-            jcardElement.querySelector('.options .note-size'),
-            [jcardElement.querySelector('.card .spine .note-group')]);
 
         // track size
         addSizeListener(
@@ -224,12 +212,24 @@ layout: base
             jcardElement.querySelector('.options .type-size'),
             [jcardElement.querySelector('.card .front .type')]);
 
+        // note size
+        addSizeListener(
+            jcardElement.querySelector('.options .note-size'),
+            [jcardElement.querySelector('.card .spine .note-group')]);
+
         // back size
         addSizeListener(
             jcardElement.querySelector('.options .back-size'), [
                 jcardElement.querySelector('.card .back .side-a'),
                 jcardElement.querySelector('.card .back .side-b')
             ]);
+
+        // short back
+        addCheckboxListener(
+            jcardElement.querySelector('.options .short-back'), [
+                jcardElement.querySelector('.card .bleed'),
+                jcardElement.querySelector('.card .back')
+            ], 'short');
 
 
         // colors
