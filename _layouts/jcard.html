@@ -117,7 +117,7 @@ layout: base
 </article>
 <script>
     (function() {
-        // 
+        // add a number input listener that updates the font size of elements
         function addSizeListener(inputElement, outputElements) {
             function update() {
                 outputElements.forEach(function(element) {
@@ -129,7 +129,7 @@ layout: base
             update();
         }
 
-        //
+        // add a color input listener that updates an element's style property
         function addColorListener(inputElement, outputElement, styleProperty) {
             function update() {
                 outputElement.style[styleProperty] = inputElement.value;
@@ -139,14 +139,14 @@ layout: base
             update();
         }
 
-        //
+        // add a file input listener that updates an image element's src
         function addImageListener(inputElement, outputElement) {
             inputElement.addEventListener("change", function(event) {
                 outputElement.src = URL.createObjectURL(inputElement.files[0]);
             });
         }
 
-        //
+        // add a checkbox input listener that toggles a class on elements
         function addCheckboxListener(inputElement, outputElements, toggleClass) {
             function update() {
                 var enabled = inputElement.checked;
@@ -163,7 +163,7 @@ layout: base
             update();
         }
 
-        // 
+        // add a text input listener that sets the text of elements
         function addInputListener(inputElement, outputElements) {
             function update() {
                 outputElements.forEach(function(element) {
@@ -175,7 +175,7 @@ layout: base
             update();
         }
 
-        //
+        // add text input listeners that set the text of all track elements
         function addTrackListener(inputElements, outputElements, trackElement, separator) {
             function update() {
                 var sides = inputElements.map(function(element, index) {
