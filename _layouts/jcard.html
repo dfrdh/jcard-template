@@ -183,7 +183,7 @@ layout: base
 
                     // update label and tracks
                     var outputElement = outputElements[index];
-                    outputElement.style.display = tracks ? 'block' : 'none';
+                    outputElement.style.visibility = tracks ? 'visible' : 'hidden';
                     outputElement.querySelector('.tracks').innerHTML = tracks;
 
                     return tracks;
