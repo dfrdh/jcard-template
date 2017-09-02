@@ -179,11 +179,20 @@ layout: base
         function addTrackListener(inputElements, outputElements, trackElement, separator) {
             function update() {
                 var sides = inputElements.map(function(element, index) {
-                    var tracks = element.value.replace(/\n/g, separator);
-                    outputElements[index].innerHTML = tracks;
+                    var tracks = element.value.trim().replace(/\s*\n\s*/g, separator);
+
+                    // update label and tracks
+                    var outputElement = outputElements[index];
+                    outputElement.style.display = tracks ? 'block' : 'none';
+                    outputElement.querySelector('.tracks').innerHTML = tracks;
+
                     return tracks;
                 });
-                trackElement.innerHTML = sides.join(separator);
+                // remove empty sides to prevent adding extra separators
+                var nonEmptySides = sides.filter(function(side) {
+                    return side.length > 0;
+                });
+                trackElement.innerHTML = nonEmptySides.join(separator);
             }
 
             inputElements.forEach(function(element) {
@@ -282,8 +291,8 @@ layout: base
                 jcardElement.querySelector('.options .side-a'),
                 jcardElement.querySelector('.options .side-b')
             ], [
-                jcardElement.querySelector('.card .side-a .tracks'),
-                jcardElement.querySelector('.card .side-b .tracks')
+                jcardElement.querySelector('.card .side-a'),
+                jcardElement.querySelector('.card .side-b')
             ],
             jcardElement.querySelector('.card .front .tracks'),
             '&nbsp;• ');

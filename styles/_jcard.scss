@@ -27,6 +27,9 @@ $short-back-height: 0.6in;
         .title, .subtitle, .label {
             font-weight: bold;
         }
+        .title-group, .note-group, .type {
+            white-space: nowrap;
+        }
 
         /*  */
         .bleed {
@@ -101,7 +104,7 @@ $short-back-height: 0.6in;
 
                 text-align: left;
 
-                .side-a, .side-b { width: calc(50% - 1.5 * $side-margin); }
+                .side-a, .side-b { width: calc(50% - #{1.5 * $side-margin}); }
                 .side-a { margin: 0 ($side-margin / 2) 0 $side-margin; }
                 .side-b { margin: 0 $side-margin 0 ($side-margin / 2) ; }
 
