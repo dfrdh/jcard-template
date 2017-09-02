@@ -6,9 +6,10 @@ $bleed: 0.1in;
 $side-margin: 0.15in;
 $short-back-height: 0.6in;
 
+
 /* J-Card template */
 #jcard {
-    /* */
+    /* printable card */
     .card {
         position: relative;
         width: $card-width;
