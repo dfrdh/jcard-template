@@ -102,11 +102,15 @@ $short-back-height: 0.6in;
                     rotate(90deg)
                     translateY($short-back-height - 1in);
 
+                width: $card-height - $side-margin;
+                padding: 0 ($side-margin / 2);
+
                 text-align: left;
 
-                .side-a, .side-b { width: calc(50% - #{1.5 * $side-margin}); }
-                .side-a { margin: 0 ($side-margin / 2) 0 $side-margin; }
-                .side-b { margin: 0 $side-margin 0 ($side-margin / 2) ; }
+                .side-a, .side-b {
+                    flex: 1;
+                    margin: 0 ($side-margin / 2);
+                }
 
                 .label, .tracks { display: inline; }
                 .label:after {
@@ -132,7 +136,6 @@ $short-back-height: 0.6in;
             height: 0.5in;
 
             .title-group, .note-group {
-                flex-grow: 1;
                 margin-bottom: 0.1em;
             }
             .title-group {
@@ -171,9 +174,6 @@ $short-back-height: 0.6in;
                 height: $card-height - $front-width - 0.1in;
                 margin: 0.05in $side-margin;
 
-                .title-group, .type {
-                    flex-shrink: 0;
-                }
                 .tracks { line-height: 1.2; }
             }
         }
