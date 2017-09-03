@@ -73,7 +73,6 @@ $short-back-height: 0.6in;
         .back {
             display: flex;
             flex-flow: column nowrap;
-            align-items: center;
             justify-content: center;
 
             width: $card-height;
@@ -94,6 +93,7 @@ $short-back-height: 0.6in;
             /* rearrange back panel for blank style boxes */
             &.short {
                 flex-flow: row nowrap;
+                align-items: center;
                 justify-content: space-between;
 
                 height: $short-back-height;
