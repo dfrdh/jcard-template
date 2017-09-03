@@ -4,7 +4,7 @@ title: J-Card Template
 jcard:
   card_color: "#ffffff"
   text_color: "#000000"
-  cover: "images/cover.jpg"
+  cover: "cover.jpg"
   title: "The Numbers Game"
   subtitle: "Dark Mathematicians"
   type: "Stereo Tape"
