@@ -4,8 +4,8 @@ exclude:
   - README.md
   - fonts/LICENSE
 sass:
-  sass_dir: styles
   style: compressed
+baseurl: /jcard-template
 
 
 # test server settings
