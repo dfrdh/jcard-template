@@ -14,17 +14,37 @@ var fields = (function() {
 
     return {
         // add a number input listener that updates the font size of elements
-        addSizeListener :function(inputSelector, outputSelectors) {
+        addSizeListener :function(inputSelector, targetSelectors) {
             var inputElement = select(inputSelector);
-            var outputElements = selectEach(outputSelectors);
+            var targetElements = selectEach(targetSelectors);
 
             function update() {
-                outputElements.forEach(function(element) {
+                targetElements.forEach(function(element) {
                     element.style.fontSize = inputElement.value + 'pt';
                 });
             }
 
             inputElement.addEventListener('input', update);
+            update();
+        },
+
+        // add a checkbox input listener that toggles a class on elements
+        addToggleListener: function(inputSelector, targetSelectors, toggleClass) {
+            var inputElement = select(inputSelector);
+            var targetElements = selectEach(targetSelectors);
+
+            function update() {
+                var enabled = inputElement.checked;
+                targetElements.forEach(function(element) {
+                    if (enabled) {
+                        element.classList.add(toggleClass);
+                    } else {
+                        element.classList.remove(toggleClass);
+                    }
+                });
+            }
+
+            inputElement.addEventListener('change', update);
             update();
         },
 
@@ -43,23 +63,6 @@ var fields = (function() {
             inputElement.addEventListener("change", function(event) {
                 outputElement.src = URL.createObjectURL(inputElement.files[0]);
             });
-        },
-
-        // add a checkbox input listener that toggles a class on elements
-        addCheckboxListener: function(inputElement, outputElements, toggleClass) {
-            function update() {
-                var enabled = inputElement.checked;
-                outputElements.forEach(function(element) {
-                    if (enabled) {
-                        element.classList.add(toggleClass);
-                    } else {
-                        element.classList.remove(toggleClass);
-                    }
-                });
-            }
-
-            inputElement.addEventListener("change", update);
-            update();
         },
 
         // add a text input listener that sets the text of elements

@@ -1,10 +1,11 @@
 {%- comment -%}
-    Font size field
+    Number field that changes the font size on an element
 
     Parameters:
-        label: field label
-        value: default value
-        outputs: output element selectors
+        id:         input id
+        label:      field label
+        value:      default value
+        targets:    comma list of selectors
 {%- endcomment -%}
 
 
@@ -19,6 +20,6 @@
     (function() {
         fields.addSizeListener(
             '#{{ include.id }}',
-            ['{{ include.outputs | split: ", " | join: "', '" }}']);
+            ['{{ include.targets | split: ", " | join: "', '" }}']);
     })();
 </script>

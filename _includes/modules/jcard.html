@@ -66,28 +66,27 @@
             <legend>Layout</legend>
             {% include modules/size_field.html
                 id="title-size" label="Title Size" value="12"
-                outputs="#jcard .card .front .title-group, #jcard .card .spine .title-group" %}
+                targets="#jcard .card .front .title-group, #jcard .card .spine .title-group" %}
 
             {% include modules/size_field.html
                 id="track-size" label="Track Size" value="9"
-                outputs="#jcard .card .front .tracks" %}
+                targets="#jcard .card .front .tracks" %}
 
             {% include modules/size_field.html
                 id="type-size" label="Type Size" value="10"
-                outputs="#jcard .card .front .type" %}
+                targets="#jcard .card .front .type" %}
 
             {% include modules/size_field.html
                 id="note-size" label="Note Size" value="10"
-                outputs="#jcard .card .spine .note-group" %}
+                targets="#jcard .card .spine .note-group" %}
 
             {% include modules/size_field.html
                 id="back-size" label="Back Size" value="8"
-                outputs="#jcard .card .back .side-a, #jcard .card .back .side-b" %}
+                targets="#jcard .card .back .side-a, #jcard .card .back .side-b" %}
 
-            <div>
-                <label>Short Back</label>
-                <input class="short-back" type="checkbox" />
-            </div>
+            {% include modules/toggle_field.html
+                id="short-back" label="Short Back" class="short"
+                targets="#jcard .card .bleed, #jcard .card .back" %}
         </fieldset>
         <fieldset>
             <legend>Content</legend>
@@ -131,14 +130,6 @@
 <script>
     (function() {
         var jcardElement = document.getElementById('jcard');
-
-        // short back
-        fields.addCheckboxListener(
-            jcardElement.querySelector('.options .short-back'), [
-                jcardElement.querySelector('.card .bleed'),
-                jcardElement.querySelector('.card .back')
-            ], 'short');
-
 
         // colors
         fields.addColorListener(
