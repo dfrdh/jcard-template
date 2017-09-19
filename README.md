@@ -12,5 +12,5 @@ Source in this repository is licensed under the MIT License, see "LICENSE" for
 details.
 
 ### Fonts
-Fonts in the "fonts" directory are licensed under a custom license, see
-"fonts/LICENSE" for details.
+Fonts in the "static/fonts" directory are licensed under a custom license, see
+"static/fonts/LICENSE" for details.

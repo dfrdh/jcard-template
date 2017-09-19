@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>{{ page.title }}</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=4.0" />
-        <link href="{{ site.baseurl }}/styles/styles.css" rel="stylesheet" type="text/css" />
-    </head>
-    <body>
-        <div id="column">
-            {{ content }}
-            <footer id="footer" class="noprint">
-                <span>This template is free and <a href="{{ site.repo }}">open source</a> software.</span>
-            </footer>
+    {% include modules/head.html %}
+    <body class="base">
+        <div class="base-column">
+            <div class="base-header">
+                {% include modules/header.html %}
+            </div>
+            <div class="base-content">
+                {{ content }}
+            </div>
+            <div class="base-footer">
+                {% include modules/footer.html %}
+            </div>
         </div>
     </body>
 </html>

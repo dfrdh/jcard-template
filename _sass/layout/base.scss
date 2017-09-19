@@ -1,0 +1,33 @@
+// Base Site Layout
+//
+// Requires:
+//    base/config.scss
+
+
+.base {
+    margin: $sizes-medium-length;
+
+    &-column {
+        width: $media-content-width;
+        margin: 0 auto;
+    }
+
+    &-header {
+        margin-bottom: $sizes-v-large-length;
+        padding-bottom: $sizes-small-length;
+        border-bottom: $sizes-thin-thickness dashed $colors-fg-color;
+    }
+    &-footer {
+        margin-top: $sizes-v-large-length;
+        padding-top: $sizes-small-length;
+        border-top: $sizes-thin-thickness dashed $colors-fg-color;
+    }
+
+    @media print {
+        &-column {
+            width: auto;
+            margin: 0;
+        }
+        &-header, &-footer { display: none; }
+    }
+}

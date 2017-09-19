@@ -1,0 +1,115 @@
+// Global Styles
+//
+// Requires:
+//    base/config.scss
+//    mixins/font-family.scss
+//    variable: $site-baseurl
+//    variable: $static-root
+//    variable: $static-fonts
+
+
+/* fonts */
+@each $name, $font in $static-fonts {
+    $name: map-get($font, "name");
+    $path: $site-baseurl + $static-root + map-get($font, "path");
+    $format: map-get($font, "format");
+    $style: map-get($font, "style");
+    $style: normal !default;
+    $weight: map-get($font, "weight");
+    $weight: normal !default;
+
+    @include font-face($name, $path, $format, unquote($style), unquote($weight));
+}
+
+/* root */
+body {
+    font-family: $text-font-family;
+    line-height: $text-line-height;
+    color: $colors-fg-color;
+    background-color: $colors-bg-color;
+}
+
+/* headings */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: bold;
+    color: $colors-fg-color;
+}
+h1 { margin: 0; }
+h2, h3, h4, h5, h6 { margin: $text-wide-gap 0 $text-narrow-gap }
+h1 { font-size: $text-vv-large-size; }
+h2 { font-size: $text-v-large-size; }
+h3 { font-size: $text-large-size; }
+h4 { font-size: $text-medium-size; }
+h5 { font-size: $text-small-size; }
+h6 { font-size: $text-v-small-size; }
+
+/* text elements */
+p, span, ol, ul, pre, blockquote {
+    line-height: $text-line-height;
+}
+p, ol, ul, pre, blockquote {
+    margin-top: $text-medium-gap;
+    margin-bottom: $text-medium-gap;
+}
+ul, ol {
+    padding-left: $text-wide-gap;
+}
+blockquote {
+    margin-left: $text-wide-gap;
+    margin-right: $text-wide-gap;
+}
+
+/* links */
+a {
+    text-decoration: none;
+    color: $colors-contrast-color;
+
+    &:hover { text-decoration: underline; }
+}
+
+/* forms */
+fieldset {
+    border: $sizes-thin-thickness solid $colors-accent-color;
+    margin: 0 0 $sizes-small-length;
+    padding: $sizes-small-length;
+}
+legend {
+    font-weight: bold;
+}
+label {
+    display: inline-block;
+    width: 100px;
+    padding-right: $sizes-small-length;
+    text-align: right;
+    vertical-align: top;
+}
+label, input, textarea {
+    margin: $sizes-vv-small-length 0;
+}
+input, textarea {
+    vertical-align: middle;
+}
+input[type=checkbox] {
+    vertical-align: text-bottom;
+}
+input[type=text], input[type=number], textarea {
+    padding: $sizes-vv-small-length;
+    border: $sizes-thin-thickness solid $colors-accent-color;
+}
+input[type=number] {
+    width: 100px;
+}
+input[type=text], textarea {
+    width: 350px;
+
+    &.narrow {
+        width: calc(175px - 0.325em);
+        margin-right: $sizes-v-small-length;
+    }
+}
+textarea {
+    height: 128px;
+}
+input[type=color] {
+    margin-right: $sizes-v-small-length;
+}
