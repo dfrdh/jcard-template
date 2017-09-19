@@ -21,7 +21,7 @@
 
 {%- assign static = site.data.static -%}
 {%- assign jcard = include.jcard -%}
-{{ import }}
+
 <div id="jcard" class="jcard">
     <div class="card">
         <div class="bleed">
@@ -130,124 +130,39 @@
 </div>
 <script>
     (function() {
-        // add a number input listener that updates the font size of elements
-        function addSizeListener(inputElement, outputElements) {
-            function update() {
-                outputElements.forEach(function(element) {
-                    element.style.fontSize = inputElement.value + 'pt';
-                });
-            }
-
-            inputElement.addEventListener("input", update);
-            update();
-        }
-
-        // add a color input listener that updates an element's style property
-        function addColorListener(inputElement, outputElement, styleProperty) {
-            function update() {
-                outputElement.style[styleProperty] = inputElement.value;
-            }
-
-            inputElement.addEventListener("input", update);
-            update();
-        }
-
-        // add a file input listener that updates an image element's src
-        function addImageListener(inputElement, outputElement) {
-            inputElement.addEventListener("change", function(event) {
-                outputElement.src = URL.createObjectURL(inputElement.files[0]);
-            });
-        }
-
-        // add a checkbox input listener that toggles a class on elements
-        function addCheckboxListener(inputElement, outputElements, toggleClass) {
-            function update() {
-                var enabled = inputElement.checked;
-                outputElements.forEach(function(element) {
-                    if (enabled) {
-                        element.classList.add(toggleClass);
-                    } else {
-                        element.classList.remove(toggleClass);
-                    }
-                });
-            }
-
-            inputElement.addEventListener("change", update);
-            update();
-        }
-
-        // add a text input listener that sets the text of elements
-        function addInputListener(inputElement, outputElements) {
-            function update() {
-                outputElements.forEach(function(element) {
-                    element.innerHTML = inputElement.value;
-                });
-            }
-
-            inputElement.addEventListener("input", update);
-            update();
-        }
-
-        // add text input listeners that set the text of all track elements
-        function addTrackListener(inputElements, outputElements, trackElement, separator) {
-            function update() {
-                var sides = inputElements.map(function(element, index) {
-                    var tracks = element.value.trim().replace(/\s*\n\s*/g, separator);
-
-                    // update label and tracks
-                    var outputElement = outputElements[index];
-                    outputElement.style.display = tracks ? 'block' : 'none';
-                    outputElement.querySelector('.tracks').innerHTML = tracks;
-
-                    return tracks;
-                });
-                // remove empty sides to prevent adding extra separators
-                var nonEmptySides = sides.filter(function(side) {
-                    return side.length > 0;
-                });
-                trackElement.innerHTML = nonEmptySides.join(separator);
-            }
-
-            inputElements.forEach(function(element) {
-                element.addEventListener("input", update);
-            });
-            update();
-        }
-
-
         var jcardElement = document.getElementById('jcard');
 
         // title size
-        addSizeListener(
+        fields.addSizeListener(
             jcardElement.querySelector('.options .title-size'), [
                 jcardElement.querySelector('.card .front .title-group'),
                 jcardElement.querySelector('.card .spine .title-group')
             ]);
 
         // track size
-        addSizeListener(
+        fields.addSizeListener(
             jcardElement.querySelector('.options .track-size'),
             [jcardElement.querySelector('.card .front .tracks')]);
 
         // type size
-        addSizeListener(
+        fields.addSizeListener(
             jcardElement.querySelector('.options .type-size'),
             [jcardElement.querySelector('.card .front .type')]);
 
         // note size
-        addSizeListener(
+        fields.addSizeListener(
             jcardElement.querySelector('.options .note-size'),
             [jcardElement.querySelector('.card .spine .note-group')]);
 
         // back size
-        addSizeListener(
+        fields.addSizeListener(
             jcardElement.querySelector('.options .back-size'), [
                 jcardElement.querySelector('.card .back .side-a'),
                 jcardElement.querySelector('.card .back .side-b')
             ]);
 
         // short back
-        addCheckboxListener(
+        fields.addCheckboxListener(
             jcardElement.querySelector('.options .short-back'), [
                 jcardElement.querySelector('.card .bleed'),
                 jcardElement.querySelector('.card .back')
@@ -255,59 +170,58 @@
 
 
         // colors
-        addColorListener(
+        fields.addColorListener(
             jcardElement.querySelector('.options .card-color'),
             jcardElement.querySelector('.bleed'), 'backgroundColor');
-        addColorListener(
+        fields.addColorListener(
             jcardElement.querySelector('.options .text-color'),
             jcardElement.querySelector('.card'), 'color');
 
         // cover image
-        addImageListener(
+        fields.addImageListener(
             jcardElement.querySelector('.options .cover'),
             jcardElement.querySelector('.card .cover'));
 
         // title
-        addInputListener(
+        fields.addInputListener(
             jcardElement.querySelector('.options .title'), [
                 jcardElement.querySelector('.card .front .title'),
                 jcardElement.querySelector('.card .spine .title')
         ]);
 
         // subtitle
-        addInputListener(
+        fields.addInputListener(
             jcardElement.querySelector('.options .subtitle'), [
                 jcardElement.querySelector('.card .front .subtitle'),
                 jcardElement.querySelector('.card .spine .subtitle')
         ]);
 
         // note upper
-        addInputListener(
+        fields.addInputListener(
             jcardElement.querySelector('.options .note-upper'),
             [jcardElement.querySelector('.card .note-upper')]
         );
 
         // note lower
-        addInputListener(
+        fields.addInputListener(
             jcardElement.querySelector('.options .note-lower'),
             [jcardElement.querySelector('.card .note-lower')]
         );
 
         // type
-        addInputListener(
+        fields.addInputListener(
             jcardElement.querySelector('.options .type'),
             [jcardElement.querySelector('.card .type')]
         );
 
         // track fields
-        addTrackListener([
+        fields.addTrackListener([
                 jcardElement.querySelector('.options .side-a'),
                 jcardElement.querySelector('.options .side-b')
             ], [
                 jcardElement.querySelector('.card .side-a'),
                 jcardElement.querySelector('.card .side-b')
             ],
-            jcardElement.querySelector('.card .front .tracks'),
-            '&nbsp;• ');
+            jcardElement.querySelector('.card .front .tracks'));
     })();
 </script>

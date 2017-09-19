@@ -3,9 +3,10 @@
 
     Requires:
         var: site.baseurl
-        data: site.data.site.title  # site title
-        data: site.data.static.root  # static asset root
-        data: site.data.static.styles  # stylesheet metadata
+        data: site.data.site.title      # site title
+        data: site.data.static.root     # static asset root
+        data: site.data.static.styles   # list of stylesheet paths
+        data: site.data.static.scripts  # list of javascript paths
 {%- endcomment -%}
 
 
@@ -15,5 +16,8 @@
     {% for style_path in site.data.static.styles %}
     <link rel="stylesheet" type="text/css"
         href="{{ site.baseurl }}{{ site.data.static.root }}{{ style_path }}"/>
+    {% endfor %}
+    {% for script_path in site.data.static.scripts %}
+    <script src="{{ site.baseurl }}{{ site.data.static.root }}{{ script_path }}"></script>
     {% endfor %}
 </head>

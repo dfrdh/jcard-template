@@ -3,6 +3,9 @@ root: /static
 styles: 
   - /styles/styles.css
 
+scripts:
+  - /scripts/fields.js
+
 fonts:
   - name: Alte Haas Grotesk
     path: /fonts/alte-haas-grotesk.ttf
