@@ -1,0 +1,24 @@
+{%- comment -%}
+    Font size field
+
+    Parameters:
+        label: field label
+        value: default value
+        outputs: output element selectors
+{%- endcomment -%}
+
+
+<div class="size-field">
+    <label for="{{ include.id }}">{{- include.label -}}</label>
+    <input
+        id="{{ include.id }}" class="size-field-input"
+        type="number" min="0" step="0.1"
+        value="{{ include.value }}" />
+</div>
+<script>
+    (function() {
+        fields.addSizeListener(
+            '#{{ include.id }}',
+            ['{{ include.outputs | split: ", " | join: "', '" }}']);
+    })();
+</script>

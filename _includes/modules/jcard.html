@@ -64,26 +64,26 @@
     <form class="options">
         <fieldset>
             <legend>Layout</legend>
-            <div>
-                <label>Title Size</label>
-                <input class="title-size" type="number" value="12" min="0" step="0.1" />
-            </div>
-            <div>
-                <label>Track Size</label>
-                <input class="track-size" type="number" value="9" min="0" step="0.1" />
-            </div>
-            <div>
-                <label>Type Size</label>
-                <input class="type-size" type="number" value="10" min="0" step="0.1" />
-            </div>
-            <div>
-                <label>Note Size</label>
-                <input class="note-size" type="number" value="10" min="0" step="0.1" />
-            </div>
-            <div>
-                <label>Back Size</label>
-                <input class="back-size" type="number" value="8" min="0" step="0.1" />
-            </div>
+            {% include modules/size_field.html
+                id="title-size" label="Title Size" value="12"
+                outputs="#jcard .card .front .title-group, #jcard .card .spine .title-group" %}
+
+            {% include modules/size_field.html
+                id="track-size" label="Track Size" value="9"
+                outputs="#jcard .card .front .tracks" %}
+
+            {% include modules/size_field.html
+                id="type-size" label="Type Size" value="10"
+                outputs="#jcard .card .front .type" %}
+
+            {% include modules/size_field.html
+                id="note-size" label="Note Size" value="10"
+                outputs="#jcard .card .spine .note-group" %}
+
+            {% include modules/size_field.html
+                id="back-size" label="Back Size" value="8"
+                outputs="#jcard .card .back .side-a, #jcard .card .back .side-b" %}
+
             <div>
                 <label>Short Back</label>
                 <input class="short-back" type="checkbox" />
@@ -131,35 +131,6 @@
 <script>
     (function() {
         var jcardElement = document.getElementById('jcard');
-
-        // title size
-        fields.addSizeListener(
-            jcardElement.querySelector('.options .title-size'), [
-                jcardElement.querySelector('.card .front .title-group'),
-                jcardElement.querySelector('.card .spine .title-group')
-            ]);
-
-        // track size
-        fields.addSizeListener(
-            jcardElement.querySelector('.options .track-size'),
-            [jcardElement.querySelector('.card .front .tracks')]);
-
-        // type size
-        fields.addSizeListener(
-            jcardElement.querySelector('.options .type-size'),
-            [jcardElement.querySelector('.card .front .type')]);
-
-        // note size
-        fields.addSizeListener(
-            jcardElement.querySelector('.options .note-size'),
-            [jcardElement.querySelector('.card .spine .note-group')]);
-
-        // back size
-        fields.addSizeListener(
-            jcardElement.querySelector('.options .back-size'), [
-                jcardElement.querySelector('.card .back .side-a'),
-                jcardElement.querySelector('.card .back .side-b')
-            ]);
 
         // short back
         fields.addCheckboxListener(
