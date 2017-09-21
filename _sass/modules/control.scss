@@ -1,0 +1,42 @@
+// Form control
+//
+// Requires:
+//     base/config.scss
+
+
+$control-label-width: 120px;
+$control-size-width: 100px;
+$control-text-width: 300px;
+$control-tracks-width: 300px;
+$control-tracks-height: 100px;
+
+.control {
+    margin: $sizes-v-small-length 0;
+
+    &-label {
+        display: inline-block;
+        width: $control-label-width;
+        padding-right: $sizes-small-length;
+        text-align: right;
+        vertical-align: baseline;
+    }
+
+    &-class-input {
+        vertical-align: bottom;
+    }
+
+    &-size-input {
+        vertical-align: baseline; 
+        width: $control-size-width;
+    }
+    &-text-input {
+        vertical-align: baseline; 
+        width: $control-text-width;
+    }
+
+    &-tracks-input {
+        vertical-align: top; 
+        width: $control-tracks-width;
+        height: $control-tracks-height;
+    }
+}

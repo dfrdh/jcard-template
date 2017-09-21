@@ -10,7 +10,7 @@
         jcard.type: front   bottom text
         jcard.note_upper:   spine note upper
         jcard.note_lower:   spine note lower
-        jcard.side_a:       list of side"A" tracks
+        jcard.side_a:       list of side "A" tracks
         jcard.side_b:       list of side "B" tracks
     Requires:
         var: site.baseurl
@@ -30,14 +30,8 @@
             <div class="fold-2 vert-fold-mark"></div>
         </div>
         <div class="back">
-            <div class="side-a">
-                <div class="label">Side A</div>
-                <div class="tracks"></div>
-            </div>
-            <div class="side-b">
-                <div class="label">Side B</div>
-                <div class="tracks"></div>
-            </div>
+            <div class="side-a"></div>
+            <div class="side-b"></div>
         </div>
         <div class="spine">
             <div class="title-group">
@@ -64,126 +58,55 @@
     <form class="options">
         <fieldset>
             <legend>Layout</legend>
-            {% include modules/size_field.html
-                id="title-size" label="Title Size" value="12"
-                targets="#jcard .card .front .title-group, #jcard .card .spine .title-group" %}
+            {% include modules/control.html type="size" id="jcard-title-size" label="Title Size" value="12" %}
+            {% include modules/control.html type="size" id="jcard-track-size" label="Track Size" value="9" %}
+            {% include modules/control.html type="size" id="jcard-type-size" label="Type Size" value="10" %}
+            {% include modules/control.html type="size" id="jcard-note-size" label="Note Size" value="10" %}
+            {% include modules/control.html type="size" id="jcard-back-size" label="Back Size" value="8" %}
 
-            {% include modules/size_field.html
-                id="track-size" label="Track Size" value="9"
-                targets="#jcard .card .front .tracks" %}
-
-            {% include modules/size_field.html
-                id="type-size" label="Type Size" value="10"
-                targets="#jcard .card .front .type" %}
-
-            {% include modules/size_field.html
-                id="note-size" label="Note Size" value="10"
-                targets="#jcard .card .spine .note-group" %}
-
-            {% include modules/size_field.html
-                id="back-size" label="Back Size" value="8"
-                targets="#jcard .card .back .side-a, #jcard .card .back .side-b" %}
-
-            {% include modules/toggle_field.html
-                id="short-back" label="Short Back" class="short"
-                targets="#jcard .card .bleed, #jcard .card .back" %}
+            {% include modules/control.html type="class" id="jcard-short-back" label="Short Back" %}
         </fieldset>
         <fieldset>
             <legend>Content</legend>
-            <div>
-                <label>Colors</label>
-                <input class="card-color" type="color" value="{{ jcard.card_color }}"
-                /><input class="text-color" type="color" value="{{ jcard.text_color }}" />
-            </div>
-            <div>
-                <label>Cover</label>
-                <input class="cover" type="file" />
-            </div>
-            <div>
-                <label>Title</label>
-                <input class="title" type="text" value="{{ jcard.title }}" />
-            </div>
-            <div>
-                <label>Subtitle</label>
-                <input class="subtitle" type="text" value="{{ jcard.subtitle }}" />
-            </div>
-            <div>
-                <label>Note</label>
-                <input class="note-upper narrow" type="text" value="{{ jcard.note_upper }}"
-                /><input class="note-lower narrow" type="text" value="{{ jcard.note_lower }}" />
-            </div>
-            <div>
-                <label>Type</label>
-                <input class="type" type="text" value="{{ jcard.type }}" />
-            </div>
-            <div>
-                <label>Side A</label>
-                <textarea class="side-a">{{ jcard.side_a | join: '&#10;' }}</textarea>
-            </div>
-            <div>
-                <label>Side B</label>
-                <textarea class="side-b">{{ jcard.side_b | join: '&#10;' }}</textarea>
-            </div>
+            {% include modules/control.html type="color" id="jcard-card-color" label="Card Color" value=jcard.card_color %}
+            {% include modules/control.html type="color" id="jcard-text-color" label="Text Color" value=jcard.text_color %}
+            {% include modules/control.html type="image" id="jcard-cover" label="Cover" %}
+
+            {% include modules/control.html type="text" id="jcard-title" label="Title" value=jcard.title %}
+            {% include modules/control.html type="text" id="jcard-subtitle" label="Subtitle" value=jcard.subtitle %}
+            {% include modules/control.html type="text" id="jcard-type" label="Type" value=jcard.type %}
+            {% include modules/control.html type="text" id="jcard-note-upper" label="Note Upper" value=jcard.note_upper %}
+            {% include modules/control.html type="text" id="jcard-note-lower" label="Note Lower" value=jcard.note_lower %}
+
+            {% include modules/control.html type="list" id="jcard-side-a" label="Side A" value=jcard.side_a %}
+            {% include modules/control.html type="list" id="jcard-side-b" label="Side B" value=jcard.side_b %}
         </fieldset>
     </form>
 </div>
 <script>
     (function() {
-        var jcardElement = document.getElementById('jcard');
+        // layout
+        control.addSizeListener('#jcard-title-size', ['#jcard .front .title-group', '#jcard .spine .title-group']);
+        control.addSizeListener('#jcard-track-size', ['#jcard .front .tracks']);
+        control.addSizeListener('#jcard-type-size', ['#jcard .type']);
+        control.addSizeListener('#jcard-note-size', ['#jcard .spine .note-group']);
+        control.addSizeListener('#jcard-back-size', ['#jcard .back .side-a', '#jcard .back .side-b']);
 
-        // colors
-        fields.addColorListener(
-            jcardElement.querySelector('.options .card-color'),
-            jcardElement.querySelector('.bleed'), 'backgroundColor');
-        fields.addColorListener(
-            jcardElement.querySelector('.options .text-color'),
-            jcardElement.querySelector('.card'), 'color');
+        control.addClassListener('#jcard-short-back', ['#jcard .card .bleed', '#jcard .back'], 'short');
 
-        // cover image
-        fields.addImageListener(
-            jcardElement.querySelector('.options .cover'),
-            jcardElement.querySelector('.card .cover'));
+        // content
+        control.addColorListener('#jcard-card-color', ['#jcard .bleed'], 'backgroundColor');
+        control.addColorListener('#jcard-text-color', ['#jcard .card'], 'color');
+        control.addImageListener('#jcard-cover', '#jcard .cover');
 
-        // title
-        fields.addInputListener(
-            jcardElement.querySelector('.options .title'), [
-                jcardElement.querySelector('.card .front .title'),
-                jcardElement.querySelector('.card .spine .title')
-        ]);
+        control.addTextListener('#jcard-title', ['#jcard .front .title', '#jcard .card .spine .title']);
+        control.addTextListener('#jcard-subtitle', ['#jcard .front .subtitle', '#jcard .card .spine .subtitle']);
+        control.addTextListener('#jcard-type', ['#jcard .card .type']);
+        control.addTextListener('#jcard-note-upper', ['#jcard .note-upper']);
+        control.addTextListener('#jcard-note-lower', ['#jcard .note-lower']);
 
-        // subtitle
-        fields.addInputListener(
-            jcardElement.querySelector('.options .subtitle'), [
-                jcardElement.querySelector('.card .front .subtitle'),
-                jcardElement.querySelector('.card .spine .subtitle')
-        ]);
-
-        // note upper
-        fields.addInputListener(
-            jcardElement.querySelector('.options .note-upper'),
-            [jcardElement.querySelector('.card .note-upper')]
-        );
-
-        // note lower
-        fields.addInputListener(
-            jcardElement.querySelector('.options .note-lower'),
-            [jcardElement.querySelector('.card .note-lower')]
-        );
-
-        // type
-        fields.addInputListener(
-            jcardElement.querySelector('.options .type'),
-            [jcardElement.querySelector('.card .type')]
-        );
-
-        // track fields
-        fields.addTrackListener([
-                jcardElement.querySelector('.options .side-a'),
-                jcardElement.querySelector('.options .side-b')
-            ], [
-                jcardElement.querySelector('.card .side-a'),
-                jcardElement.querySelector('.card .side-b')
-            ],
-            jcardElement.querySelector('.card .front .tracks'));
+        control.addListListener('#jcard-side-a', '#jcard .side-a');
+        control.addListListener('#jcard-side-b', '#jcard .side-b');
+        control.addMultiListListener(['#jcard-side-a', '#jcard-side-b'], '#jcard .front .tracks');
     })();
 </script>

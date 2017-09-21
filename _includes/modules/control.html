@@ -1,0 +1,46 @@
+{%- comment -%}
+
+
+    Parameters:
+        type:       field type (text, list, image, class, size, color)
+        id:         input element id
+        label:      label text
+        value:      initial value
+{%- endcomment -%}
+
+
+<div class="control">
+    <label class="control-label" for="{{ include.id }}">{{- include.label -}}</label>
+    {% if include.type == "list" %}
+        <textarea
+            id="{{ include.id }}"
+            class="control-tracks-input">
+            {{- include.value | join: '&#10;' -}}
+        </textarea>
+    {% else %}
+        <input
+            id="{{ include.id }}"
+        {% if include.type == "size" %}
+            class="control-size-input"
+            type="number" min="0" step="0.1"
+        {% elsif include.type == "class" %}
+        "{{ include.type }}"
+            class="control-class-input"
+            type="checkbox"
+        {% elsif include.type == "color" %}
+            class="control-color-input"
+            type="color"
+        {% elsif include.type == "text" %}
+            class="control-text-input"
+            type="text"
+        {% elsif include.type == "image" %}
+            class="control-image-input"
+            type="file" accept="image/*"
+        {% endif %}
+
+        {% if include.value %}
+            value="{{ include.value }}"
+        {% endif %}
+        />
+    {% endif %}
+</div>

@@ -24,7 +24,7 @@
 /* root */
 body {
     font-family: $text-font-family;
-    line-height: $text-line-height;
+    line-height: 1;
     color: $colors-fg-color;
     background-color: $colors-bg-color;
 }
@@ -76,45 +76,12 @@ fieldset {
 legend {
     font-weight: bold;
 }
-label {
-    display: inline-block;
-    width: 100px;
-    padding-right: $sizes-small-length;
-    text-align: right;
-    vertical-align: top;
-}
-label, input, textarea {
-    margin: $sizes-vv-small-length 0;
-}
-input, textarea {
-    vertical-align: middle;
-}
-input[type=checkbox] {
-    vertical-align: text-bottom;
+input, select, textarea, button {
+    margin: 0;
+    font-family: inherit;
+    font-size: inherit;
 }
 input[type=text], input[type=number], textarea {
     padding: $sizes-vv-small-length;
     border: $sizes-thin-thickness solid $colors-accent-color;
-}
-
-
-
-
-
-
-
-
-input[type=text], textarea {
-    width: 350px;
-
-    &.narrow {
-        width: calc(175px - 0.325em);
-        margin-right: $sizes-v-small-length;
-    }
-}
-textarea {
-    height: 128px;
-}
-input[type=color] {
-    margin-right: $sizes-v-small-length;
 }

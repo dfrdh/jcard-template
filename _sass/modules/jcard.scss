@@ -1,4 +1,4 @@
-/* styles for _layouts/jcard.html */
+//
 
 $card-width: 4.056in;
 $card-height: 4in;
@@ -134,10 +134,16 @@ $short-back-height: 0.6in;
 
             text-align: center;
 
-            .side-a, .side-b {
-                margin: 0 $side-margin;
+            .side-a { margin: 0 $side-margin $text-narrow-gap; }
+            .side-b { margin: 0 $side-margin; }
+            .side-a:empty, .side-b:empty { display: none; }
+
+            .side-a::before, .side-b::before {
+                font-weight: bold;
+                display: block;
             }
-            .side-a { margin-bottom: 0.5em; }
+            .side-a::before { content: "Side A"; }
+            .side-b::before { content: "Side B"; }
 
             /* rearrange back panel for blank style boxes */
             &.short {
@@ -161,11 +167,12 @@ $short-back-height: 0.6in;
                     margin: 0 ($side-margin / 2);
                 }
 
-                .label, .tracks { display: inline; }
-                .label:after {
-                    content: ":";
-                    margin-right: 0.5em;
+                .side-a::before, .side-b::before {
+                    display: inline;
+                    margin-right: $text-narrow-gap;
                 }
+                .side-a::before { content: "Side A:"; }
+                .side-b::before { content: "Side B:"; }
             }
         }
 
