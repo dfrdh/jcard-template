@@ -86,11 +86,11 @@
 <script>
     (function() {
         // layout
-        control.addSizeListener('#jcard-title-size', ['#jcard .front .title-group', '#jcard .spine .title-group']);
-        control.addSizeListener('#jcard-track-size', ['#jcard .front .tracks']);
-        control.addSizeListener('#jcard-type-size', ['#jcard .type']);
-        control.addSizeListener('#jcard-note-size', ['#jcard .spine .note-group']);
-        control.addSizeListener('#jcard-back-size', ['#jcard .back .side-a', '#jcard .back .side-b']);
+        control.addSizeListener('#jcard-title-size', ['#jcard .front .title-group', '#jcard .spine .title-group'], 'fontSize', 'pt');
+        control.addSizeListener('#jcard-track-size', ['#jcard .front .tracks'], 'fontSize', 'pt');
+        control.addSizeListener('#jcard-type-size', ['#jcard .type'], 'fontSize', 'pt');
+        control.addSizeListener('#jcard-note-size', ['#jcard .spine .note-group'], 'fontSize', 'pt');
+        control.addSizeListener('#jcard-back-size', ['#jcard .back .side-a', '#jcard .back .side-b'], 'fontSize', 'pt');
 
         control.addClassListener('#jcard-short-back', ['#jcard .card .bleed', '#jcard .back'], 'short');
 

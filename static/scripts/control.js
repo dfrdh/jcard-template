@@ -96,13 +96,14 @@ var control = (function() {
                 });
         },
 
-        /* set the font size of elements to the value of an input */
-        addSizeListener: function(inputSelector, outputSelectors) {
+        /* set a style property of an element to the value of an input size */
+        addSizeListener: function(inputSelector, outputSelectors, styleProperty, sizeUnit) {
             addListener(
                [inputSelector], outputSelectors,
                 'input', function(inputElements, outputElements) {
+                    var size = inputElements[0].value + sizeUnit;
                     outputElements.forEach(function(element) {
-                        element.style.fontSize = inputElements[0].value + 'pt';
+                        element.style[styleProperty] = size;
                     });
                 });
         },

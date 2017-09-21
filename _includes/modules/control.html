@@ -1,11 +1,18 @@
 {%- comment -%}
-
+    Form control with label
+    The type of form control can be any of the following:
+        text:   text input that sets the text of an element
+        list:   text area that sets the text of an element to a joined list
+        image:  image file selector that sets the src of an image element
+        class:  checkbox that toggles a class on an element
+        size:   number input that sets a style property to a size with units
+        color:  color input that sets a style property to a color
 
     Parameters:
-        type:       field type (text, list, image, class, size, color)
-        id:         input element id
-        label:      label text
-        value:      initial value
+        type:   field type
+        id:     input element id
+        label:  label text
+        value:  initial value
 {%- endcomment -%}
 
 
@@ -24,7 +31,6 @@
             class="control-size-input"
             type="number" min="0" step="0.1"
         {% elsif include.type == "class" %}
-        "{{ include.type }}"
             class="control-class-input"
             type="checkbox"
         {% elsif include.type == "color" %}
@@ -37,7 +43,6 @@
             class="control-image-input"
             type="file" accept="image/*"
         {% endif %}
-
         {% if include.value %}
             value="{{ include.value }}"
         {% endif %}
