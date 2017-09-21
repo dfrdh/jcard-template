@@ -3,15 +3,13 @@
     {% include modules/head.html %}
     <body class="base">
         <div class="base-column">
-            <div class="base-header">
+            <header class="base-header">
                 {% include modules/header.html %}
-            </div>
-            <div class="base-content">
-                {{ content }}
-            </div>
-            <div class="base-footer">
+            </header>
+            {{ content }}
+            <footer class="base-footer">
                 {% include modules/footer.html %}
-            </div>
+            </footer>
         </div>
     </body>
 </html>
