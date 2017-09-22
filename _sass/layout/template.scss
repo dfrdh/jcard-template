@@ -1,0 +1,24 @@
+// Printable template with controls
+//
+// Requires:
+//    base/config.scss
+
+
+.template {
+    // center immediate children
+    text-align: center;
+    &-printable, &-controls { text-align: initial; }
+
+    &-printable {
+        display: inline-block;
+        margin-bottom: $text-wide-gap;
+    }
+
+    @media print {
+        text-align: initial;
+
+        &-printable { margin: 0; }
+        &-controls { display: none; }
+    }
+}
+

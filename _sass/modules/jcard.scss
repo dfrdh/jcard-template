@@ -1,192 +1,157 @@
-//
-
-$card-width: 4.056in;
-$card-height: 4in;
-$bleed: 0.1in;
-$side-margin: 0.15in;
-$short-back-height: 0.6in;
+// Blank j-card template
 
 
-/* J-Card template */
-#jcard {
-    /* printable card */
-    .card {
-        position: relative;
-        width: $card-width;
-        height: $card-height;
-        margin: (4 * $bleed) auto;
+// dimensions
+$jcard-height: 4in;
+$jcard-back-width: 1in;
+$jcard-short-back-width: 0.6in;
+$jcard-spine-width: 0.5in;
+$jcard-front-width: 2.556in;
+$jcard-panel-medium-padding: 0.15in;
+$jcard-panel-small-padding: 0.05in;
 
-        font-family: "Alte Haas Grotesk", sans-serif;
-        text-transform: uppercase;
-        line-height: 1.1;
+// side labels
+$jcard-side-a-text: "Side A";
+$jcard-side-b-text: "Side B";
+$jcard-side-sep: ":";
 
-        /* minimal margins when printing */
-        @media print { margin: 2 * $bleed; }
+// text
+$jcard-line-height: 1.1;
+$jcard-track-line-height: 1.2;
 
-        /* common styles */
-        .title, .subtitle, .label {
-            font-weight: bold;
-        }
-        .title-group, .note-group, .type {
-            white-space: nowrap;
-        }
+.jcard {
+    $jcard-width: $jcard-back-width + $jcard-spine-width + $jcard-front-width;
+    $jcard-fold-1-pos: $jcard-back-width;
+    $jcard-fold-2-pos: $jcard-back-width + $jcard-spine-width;
 
-        /*  */
-        .bleed {
-            /* create new stacking context to contain crop marks */
-            position: absolute;
-            z-index: 0;
+    width: $jcard-width;
+    height: $jcard-height;
+    text-transform: uppercase;
+    line-height: $jcard-line-height;
 
-            top: -$bleed;
-            right: -$bleed;
-            bottom: -$bleed;
-            left: -$bleed;
+    // fold markers
+    &-fold-1 { right: $jcard-width - $jcard-fold-1-pos; }
+    &-fold-2 { right: $jcard-width - $jcard-fold-2-pos; }
 
-            &.short {
-                left: 1in - $short-back-height - $bleed
-            }
-
-            .crop {
-                position: absolute;
-                top: $bleed;
-                right: $bleed;
-                bottom: $bleed;
-                left: $bleed;
-            }
-
-            .fold-1, .fold-2 {
-                position: absolute;
-                top: $bleed;
-                bottom: $bleed;
-            }
-            .fold-1 { right: $card-width + $bleed - 1in; }
-            .fold-2 { right: $card-width + $bleed - 1.5in; }
-        }
-
-        /* align panels of the card */
-        .back, .spine, .front {
-            position: absolute;
-            overflow: hidden;
-        }
-
-        /* back panel */
-        .back {
-            display: flex;
-            flex-flow: column nowrap;
-            justify-content: center;
-
-            width: $card-height;
-            height: 1in;
-
-            transform:
-                translateY(-1in)
-                rotate(90deg);
-            transform-origin: bottom left;
-
-            text-align: center;
-
-            .side-a { margin: 0 $side-margin $text-narrow-gap; }
-            .side-b { margin: 0 $side-margin; }
-            .side-a:empty, .side-b:empty { display: none; }
-
-            .side-a::before, .side-b::before {
-                font-weight: bold;
-                display: block;
-            }
-            .side-a::before { content: "Side A"; }
-            .side-b::before { content: "Side B"; }
-
-            /* rearrange back panel for blank style boxes */
-            &.short {
-                flex-flow: row nowrap;
-                align-items: center;
-                justify-content: space-between;
-
-                height: $short-back-height;
-                transform:
-                    translateY(-$short-back-height)
-                    rotate(90deg)
-                    translateY($short-back-height - 1in);
-
-                width: $card-height - $side-margin;
-                padding: 0 ($side-margin / 2);
-
-                text-align: left;
-
-                .side-a, .side-b {
-                    flex: 1;
-                    margin: 0 ($side-margin / 2);
-                }
-
-                .side-a::before, .side-b::before {
-                    display: inline;
-                    margin-right: $text-narrow-gap;
-                }
-                .side-a::before { content: "Side A:"; }
-                .side-b::before { content: "Side B:"; }
-            }
-        }
-
-        /* spine panel */
-        .spine {
-            display: flex;
-            flex-flow: row nowrap;
-            align-items: center;
-            justify-content: space-between;
-
-            transform:
-                translate(1in, -0.5in)
-                rotate(90deg);
-            transform-origin: bottom left;
-
-            width: $card-height;
-            height: 0.5in;
-
-            .title-group, .note-group {
-                margin-bottom: 0.1em;
-            }
-            .title-group {
-                margin-left: $side-margin;
-            }
-            .note-group {
-                margin-right: $side-margin;
-                text-align: right;
-            }
-        }
-
-        /* front panel */
-        .front {
-            $front-offset: 1.5in;
-            $front-width: $card-width - $front-offset;
-
-            width: $front-width;
-            height: $card-height;
-
-            left: $front-offset;
-
-            .cover {
-                display: block;
-                width: $front-width;
-                height: $front-width;
-                background: white;
-                object-fit: cover;
-            }
-            .info-group {
-                display: flex;
-                flex-flow: column nowrap;
-                align-items: stretch;
-                justify-content: space-between;
-                text-align: center;
-
-                height: $card-height - $front-width - 0.1in;
-                margin: 0.05in $side-margin;
-
-                .tracks { line-height: 1.2; }
-            }
-        }
+    // common
+    &-front-title-group, &-spine-title-group  {
+        font-weight: bold;
+        white-space: nowrap;
     }
 
-    @media print {
-        .options { display: none; }
+    // back
+    &-back {
+        position: absolute;
+
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: center;
+
+        width: $jcard-height;
+        height: $jcard-back-width;
+
+        transform-origin: bottom left;
+        transform:
+            translateY(-$jcard-back-width)
+            rotate(90deg);
+
+        text-align: center;
     }
+    &-side-a { margin: 0 $jcard-panel-medium-padding $text-narrow-gap; }
+    &-side-b { margin: 0 $jcard-panel-medium-padding; }
+    &-side-a:empty, &-side-b:empty { display: none; }
+
+    &-side-a::before, &-side-b::before {
+        font-weight: bold;
+        display: block;
+    }
+    &-side-a::before { content: $jcard-side-a-text; }
+    &-side-b::before { content: $jcard-side-b-text; }
+
+    // spine
+    &-spine {
+        $jcard-spine-pos: $jcard-back-width;
+
+        position: absolute;
+
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        justify-content: space-between;
+
+        width: $jcard-height;
+        height: $jcard-spine-width;
+
+        transform-origin: bottom left;
+        transform:
+            translate($jcard-spine-pos, -$jcard-spine-width)
+            rotate(90deg);
+    }
+    &-spine-title-group {
+        margin-left: $jcard-panel-medium-padding;
+    }
+    &-note-group {
+        margin-right: $jcard-panel-medium-padding;
+        text-align: right;
+    }
+
+    // front
+    &-front {
+        $jcard-front-pos: $jcard-back-width + $jcard-spine-width;
+
+        position: absolute;
+        left: $jcard-front-pos;
+
+        width: $jcard-front-width;
+        height: $jcard-height;
+    }
+    &-cover {
+        display: block;
+        width: $jcard-front-width;
+        height: $jcard-front-width;
+        object-fit: cover;
+    }
+    &-front-group {
+        $jcard-front-group-height: $jcard-height - $jcard-front-width;
+
+        display: flex;
+        flex-flow: column nowrap;
+        align-items: stretch;
+        justify-content: space-between;
+        text-align: center;
+
+        height: $jcard-front-group-height - (2 * $jcard-panel-small-padding);
+        padding: $jcard-panel-small-padding $jcard-panel-medium-padding;
+    }
+    &-tracks { line-height: $jcard-track-line-height; }
+
+    // short back
+    &.short-back &-crop { left: $jcard-back-width - $jcard-short-back-width; }
+    &.short-back &-back {
+        flex-flow: row nowrap;
+        align-items: center;
+        justify-content: space-between;
+
+        height: $jcard-short-back-width;
+        transform:
+            translateY(-$jcard-short-back-width)
+            rotate(90deg)
+            translateY($jcard-short-back-width - $jcard-back-width);
+
+        width: $jcard-height - $jcard-panel-medium-padding;
+        padding: 0 ($jcard-panel-medium-padding / 2);
+
+        text-align: left;
+    }
+    &.short-back &-side-a, &.short-back &-side-b {
+        flex: 1;
+        margin: 0 ($jcard-panel-medium-padding / 2);
+    }
+
+    &.short-back &-side-a::before, &.short-back &-side-b::before {
+        display: inline;
+        margin-right: $text-narrow-gap;
+    }
+    &.short-back &-side-a::before { content: $jcard-side-a-text + $jcard-side-sep; }
+    &.short-back &-side-b::before { content: $jcard-side-b-text + $jcard-side-sep; }
 }
