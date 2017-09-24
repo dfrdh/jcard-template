@@ -29,9 +29,17 @@ $template-track-line-height: 1.2;
     text-transform: uppercase;
     line-height: $template-line-height;
 
+    // crop and bleed boundaries
+    &-boundaries {
+        position: absolute;
+        top: 0; bottom: 0;
+        left: 0; right: 0;
+        background-color: inherit;
+    }
+
     // fold markers
-    &-fold-1 { right: $template-width - $template-fold-1-pos; }
-    &-fold-2 { right: $template-width - $template-fold-2-pos; }
+    &-fold-1 { left: $template-fold-1-pos; }
+    &-fold-2 { left: $template-fold-2-pos; }
 
     // common
     &-front-title-group, &-spine-title-group  {
@@ -126,7 +134,9 @@ $template-track-line-height: 1.2;
     &-tracks { line-height: $template-track-line-height; }
 
     // short back
-    &.short-back &-crop { left: $template-back-width - $template-short-back-width; }
+    &.short-back &-boundaries {
+        left: $template-back-width - $template-short-back-width;
+    }
     &.short-back &-back {
         flex-flow: row nowrap;
         align-items: center;

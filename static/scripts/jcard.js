@@ -29,6 +29,7 @@ var jcard = (function() {
     function findOutputs(template) {
         return {
             root:           template,
+            boundaries:     template.querySelector('.template-boundaries'),
             back:           template.querySelector('.template-back'),
             cover:          template.querySelector('.template-cover'),
             titleGroups:    [
@@ -64,7 +65,7 @@ var jcard = (function() {
 
         // content
         addColorListener(inputs.textColor, outputs.root, 'color');
-        addColorListener(inputs.cardColor, outputs.root, 'backgroundColor');
+        addColorListener(inputs.cardColor, outputs.boundaries, 'backgroundColor');
         addImageListener(inputs.cover, outputs.cover);
         outputs.titles.map(function(titleOutput) {
             addTextListener(inputs.title, titleOutput);

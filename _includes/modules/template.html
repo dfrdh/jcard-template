@@ -14,8 +14,10 @@
 {%- assign cover = include.cover | default: static.images.cover -%}
 
 <div class="template printable">
-    <div class="template-bleed printable-bleed"></div>
-    <div class="template-crop printable-crop"></div>
+    <div class="template-boundaries">
+        <div class="template-bleed printable-bleed"></div>
+        <div class="template-crop printable-crop"></div>
+    </div>
     <div class="template-fold-1 printable-fold"></div>
     <div class="template-fold-2 printable-fold"></div>
 

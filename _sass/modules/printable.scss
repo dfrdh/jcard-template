@@ -71,13 +71,14 @@ $printable-mark-thickness: 1pt;
             position: absolute;
             top: -$printable-mark-length;
             bottom: -$printable-mark-length;
-            left: 0; right: 0;
+            left: -($printable-mark-thickness / 2);
+            right: 0;
             z-index: -1;
 
             content: '';
 
             border: solid;
-            border-width: 0 $printable-mark-thickness 0 0;
+            border-width: 0 0 0 $printable-mark-thickness;
         }
     }
 }
