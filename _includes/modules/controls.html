@@ -1,16 +1,12 @@
 {%- comment -%}
     J-Card template controls
 
-    Parameters:
-        id:     root element ID
     Requires:
         include: modules/field.html
 {%- endcomment -%}
 
 
-{%- assign id = include.id -%}
-
-<form id="{{ include.id }}" class="controls">
+<form class="controls">
     <fieldset>
         <legend>Layout</legend>
         {% include modules/field.html type="number" attrs='min="0" step="0.1"' class="controls-title-size" label="Title Size" %}
