@@ -1,0 +1,42 @@
+// Form field with label
+//
+// Requires:
+//     base/config.scss
+
+
+$field-label-width: 120px;
+$field-text-width: 300px;
+$field-textarea-width: 300px;
+$field-textarea-height: 100px;
+$field-number-width: 100px;
+
+.field {
+    margin: $sizes-v-small-length 0;
+
+    &-label {
+        display: inline-block;
+        width: $field-label-width;
+        padding-right: $sizes-small-length;
+        text-align: right;
+        vertical-align: baseline;
+    }
+
+    &-textarea {
+        vertical-align: top; 
+        width: $field-textarea-width;
+        height: $field-textarea-height;
+    }
+    &-input {
+        &[type=text] {
+            vertical-align: baseline; 
+            width: $field-text-width;
+        }
+        &[type=number] {
+            vertical-align: baseline; 
+            width: $field-number-width;
+        }
+        &[type=checkbox] {
+            vertical-align: bottom;
+        }
+    }
+}

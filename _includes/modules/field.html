@@ -1,0 +1,26 @@
+{%- comment -%}
+    Form field with label
+    The type of form field can be 'textarea' or any <input> type.
+
+    Parameters:
+        type:   field type
+        class:  input element class
+        label:  label text
+        attrs:  additional input attributes
+{%- endcomment -%}
+
+
+<div class="field">
+    <label class="field-label" for="{{ include.id }}">{{- include.label -}}</label>
+{%- if include.type == "textarea" -%}
+    <textarea class="{{ include.class }} field-textarea"></textarea>
+{%- else -%}
+    <input
+        class="{{ include.class }} field-input"
+        type="{{ include.type }}"
+    {%- if include.attrs %}
+        {{ include.attrs }}
+    {%- endif %}
+    />
+{%- endif %}
+</div>

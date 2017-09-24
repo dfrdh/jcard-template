@@ -4,7 +4,7 @@ styles:
   - /styles/styles.css
 
 scripts:
-  - /scripts/control.js
+  - /scripts/jcard.js
 
 fonts:
   - name: Alte Haas Grotesk

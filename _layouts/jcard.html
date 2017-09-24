@@ -2,85 +2,34 @@
 layout: base
 ---
 {%- comment -%}
-    Printable J-Card with controls.
+    Printable j-card template with controls
 
     Parameters:
-        jcard:              card content
-        jcard.card_color:   background color
-        jcard.text_color:   text and marker color
-        jcard.title:        front and spine title
-        jcard.subtitle:     front and spine subtitle
-        jcard.type: front   bottom text
-        jcard.note_upper:   spine note upper
-        jcard.note_lower:   spine note lower
-        jcard.side_a:       list of side "A" tracks
-        jcard.side_b:       list of side "B" tracks
-    Requires:
-        var:    site.baseurl
-        data:   site.data.static.root           # static asset root
-        data:   site.data.static.images.cover   # cover metadata
+        fields:             jcard template fields
+        fields.card_color:  background color
+        fields.text_color:  text and marker color
+        fields.cover:       cover image path
+        fields.title:       front and spine title
+        fields.subtitle:    front and spine subtitle
+        fields.type: front  bottom text
+        fields.note_upper:  spine note upper
+        fields.note_lower:  spine note lower
+        fields.side_a:      list of side "A" tracks
+        fields.side_b:      list of side "B" tracks
 {%- endcomment -%}
 
 
-{%- assign static = site.data.static -%}
-{%- assign jcard = page.jcard -%}
-
-<div class="template">
-    <div class="template-printable">
-        {% include modules/jcard.html id="jcard" %}
+<div id="jcard" class="jcard">
+    <div class="jcard-template">
+        {% include modules/template.html cover=fields.cover %}
     </div>
-    <form class="template-controls">
-        <fieldset>
-            <legend>Layout</legend>
-            {% include modules/control.html type="size" id="jcard-title-size" label="Title Size" value="12" %}
-            {% include modules/control.html type="size" id="jcard-track-size" label="Track Size" value="9" %}
-            {% include modules/control.html type="size" id="jcard-type-size" label="Type Size" value="10" %}
-            {% include modules/control.html type="size" id="jcard-note-size" label="Note Size" value="10" %}
-            {% include modules/control.html type="size" id="jcard-back-size" label="Back Size" value="8" %}
-
-            {% include modules/control.html type="class" id="jcard-short-back" label="Short Back" %}
-        </fieldset>
-        <fieldset>
-            <legend>Content</legend>
-            {% include modules/control.html type="color" id="jcard-card-color" label="Card Color" value=jcard.card_color %}
-            {% include modules/control.html type="color" id="jcard-text-color" label="Text Color" value=jcard.text_color %}
-            {% include modules/control.html type="image" id="jcard-cover" label="Cover" %}
-
-            {% include modules/control.html type="text" id="jcard-title" label="Title" value=jcard.title %}
-            {% include modules/control.html type="text" id="jcard-subtitle" label="Subtitle" value=jcard.subtitle %}
-            {% include modules/control.html type="text" id="jcard-type" label="Type" value=jcard.type %}
-            {% include modules/control.html type="text" id="jcard-note-upper" label="Note Upper" value=jcard.note_upper %}
-            {% include modules/control.html type="text" id="jcard-note-lower" label="Note Lower" value=jcard.note_lower %}
-
-            {% include modules/control.html type="list" id="jcard-side-a" label="Side A" value=jcard.side_a %}
-            {% include modules/control.html type="list" id="jcard-side-b" label="Side B" value=jcard.side_b %}
-        </fieldset>
-    </form>
+    <div class="jcard-controls">
+        {% include modules/controls.html %}
+    </div>
 </div>
 <script>
     (function() {
-        // layout
-        control.addSizeListener('#jcard-title-size', ['#jcard .jcard-front-title-group', '#jcard .jcard-spine-title-group'], 'fontSize', 'pt');
-        control.addSizeListener('#jcard-track-size', ['#jcard .jcard-tracks'], 'fontSize', 'pt');
-        control.addSizeListener('#jcard-type-size', ['#jcard .jcard-type'], 'fontSize', 'pt');
-        control.addSizeListener('#jcard-note-size', ['#jcard .jcard-note-group'], 'fontSize', 'pt');
-        control.addSizeListener('#jcard-back-size', ['#jcard .jcard-side-a', '#jcard .jcard-side-b'], 'fontSize', 'pt');
-
-        control.addClassListener('#jcard-short-back', ['#jcard'], 'short-back');
-
-        // content
-        control.addColorListener('#jcard-card-color', ['#jcard'], 'backgroundColor');
-        control.addColorListener('#jcard-text-color', ['#jcard'], 'color');
-        control.addImageListener('#jcard-cover', '#jcard .jcard-cover');
-
-        control.addTextListener('#jcard-title', ['#jcard .jcard-front-title', '#jcard .jcard-spine-title']);
-        control.addTextListener('#jcard-subtitle', ['#jcard .jcard-front-subtitle', '#jcard  .jcard-spine-subtitle']);
-        control.addTextListener('#jcard-type', ['#jcard .jcard-type']);
-        control.addTextListener('#jcard-note-upper', ['#jcard .jcard-note-upper']);
-        control.addTextListener('#jcard-note-lower', ['#jcard .jcard-note-lower']);
-
-        control.addListListener('#jcard-side-a', '#jcard .jcard-side-a');
-        control.addListListener('#jcard-side-b', '#jcard .jcard-side-b');
-        control.addMultiListListener(['#jcard-side-a', '#jcard-side-b'], '#jcard .jcard-tracks');
+        var fields = {{ page.fields | jsonify }};
+        jcard.init('#jcard', fields);
     })();
 </script>

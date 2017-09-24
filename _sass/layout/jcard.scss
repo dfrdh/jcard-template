@@ -1,15 +1,15 @@
-// Printable template with controls
+// Printable j-card template with controls
 //
 // Requires:
 //    base/config.scss
 
 
-.template {
+.jcard {
     // center immediate children
     text-align: center;
-    &-printable, &-controls { text-align: initial; }
+    &-template, &-controls { text-align: initial; }
 
-    &-printable {
+    &-template {
         display: inline-block;
         margin-bottom: $text-wide-gap;
     }
@@ -17,7 +17,7 @@
     @media print {
         text-align: initial;
 
-        &-printable { margin: 0; }
+        &-template { margin: 0; }
         &-controls { display: none; }
     }
 }

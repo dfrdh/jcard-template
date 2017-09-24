@@ -1,7 +1,7 @@
 ---
 layout: jcard
 
-jcard:
+fields:
   card_color: "#ffffff"
   text_color: "#000000"
   title: "The Numbers Game"
