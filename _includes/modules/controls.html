@@ -11,16 +11,19 @@
         <legend>Layout</legend>
         <div class="columns">
             <div class="columns-column">
-                {% assign id = include.id + "-" %}
+                {% include modules/field.html id="controls-card-color" type="color" label="Card Color" %}
+                {% include modules/field.html id="controls-text-color" type="color" label="Text Color" %}
+            </div>
+            <div class="columns-column">
                 {% include modules/field.html id="controls-title-size" type="number" attrs='min="0" step="0.1"' label="Title Size" %}
                 {% include modules/field.html id="controls-track-size" type="number" attrs='min="0" step="0.1"' label="Track Size" %}
             </div>
             <div class="columns-column">
                 {% include modules/field.html id="controls-type-size" type="number" attrs='min="0" step="0.1"' label="Type Size" %}
-                {% include modules/field.html id="controls-note-size" type="number" attrs='min="0" step="0.1"' label="Note Size" %}
+                {% include modules/field.html id="controls-side-size" type="number" attrs='min="0" step="0.1"' label="Side Size" %}
             </div>
             <div class="columns-column">
-                {% include modules/field.html id="controls-back-size" type="number" attrs='min="0" step="0.1"' label="Back Size" %}
+                {% include modules/field.html id="controls-note-size" type="number" attrs='min="0" step="0.1"' label="Note Size" %}
                 {% include modules/field.html id="controls-short-back" type="checkbox" label="Short Back" %}
             </div>
         </div>
@@ -29,14 +32,6 @@
         <legend>Content</legend>
         <div class="columns">
             <div class="columns-column">
-                <div class="columns">
-                    <div class="columns-column">
-                        {% include modules/field.html id="controls-card-color" type="color" label="Card Color" %}
-                    </div>
-                    <div class="columns-column">
-                        {% include modules/field.html id="controls-text-color" type="color" label="Text Color" %}
-                    </div>
-                </div>
                 {% include modules/field.html id="controls-cover" type="file" attrs='accept="image/*"' label="Cover" %}
                 {% include modules/field.html id="controls-title" type="text" label="Title" %}
                 {% include modules/field.html id="controls-subtitle" type="text" label="Subtitle" %}
@@ -46,7 +41,7 @@
             </div>
             <div class="columns-column">
                 {% include modules/field.html id="controls-side-a" type="textarea" attrs='rows="5"' label="Side A" %}
-                {% include modules/field.html id="controls-side-b" type="textarea" attrs='rows="5"' label="Side B" %}
+                {% include modules/field.html id="controls-side-b" type="textarea" attrs='rows="5"' label="Side B" %}                
             </div>
         </div>
     </fieldset>
