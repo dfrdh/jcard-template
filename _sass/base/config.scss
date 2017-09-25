@@ -29,21 +29,13 @@ $colors-contrast-color: #00f;
 $colors-accent-color: #999;
 
 
-//* Media Queries *//
-$media-content-width: 800px;
-
-
 //* Sizes *//
 
-// lengths
-$sizes-v-large-length: 2em;
-$sizes-large-length: 1.5em;
-$sizes-medium-length: 1em;
-$sizes-small-length: 0.5em;
-$sizes-v-small-length: 0.25em;
-$sizes-vv-small-length: 0.125em;
+// lines
+$sizes-thick-line: 4px;
+$sizes-medium-line: 2px;
+$sizes-thin-line: 1px;
 
-// thicknesses
-$sizes-thick-thickness: 4px;
-$sizes-medium-thickness: 2px;
-$sizes-thin-thickness: 1px;
+
+//* Media Queries *//
+$media-content-width: 800px;

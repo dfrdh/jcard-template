@@ -10,7 +10,7 @@ $field-label-width: 8em;
     display: flex;
     flex-flow: row nowrap;
     align-items: top;
-    margin-bottom: $sizes-v-small-length;
+    margin-bottom: $text-space-gap;
 
     &-label {
         flex: none;

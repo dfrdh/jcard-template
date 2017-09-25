@@ -69,9 +69,9 @@ a {
 
 /* forms */
 fieldset {
-    border: $sizes-thin-thickness solid $colors-accent-color;
-    margin: 0 0 $sizes-small-length;
-    padding: $sizes-small-length;
+    border: $sizes-thin-line solid $colors-accent-color;
+    margin: 0 0 $text-narrow-gap;
+    padding: $text-narrow-gap;
 }
 legend {
     font-weight: bold;
@@ -82,6 +82,6 @@ input, select, textarea, button {
     font-size: inherit;
 }
 textarea, input[type=text], input[type=number] {
-    padding: $sizes-vv-small-length;
-    border: $sizes-thin-thickness solid $colors-accent-color;
+    padding: $text-space-gap;
+    border: $sizes-thin-line solid $colors-accent-color;
 }

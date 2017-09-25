@@ -5,7 +5,7 @@
 
 
 .base {
-    margin: $sizes-medium-length;
+    margin: $text-medium-gap;
 
     &-column {
         width: $media-content-width;
@@ -13,14 +13,14 @@
     }
 
     &-header {
-        margin-bottom: $sizes-v-large-length;
-        padding-bottom: $sizes-medium-length;
-        border-bottom: $sizes-thin-thickness dashed $colors-fg-color;
+        margin-bottom: $text-wide-gap;
+        padding-bottom: $text-medium-gap;
+        border-bottom: $sizes-thin-line dashed $colors-fg-color;
     }
     &-footer {
-        margin-top: $sizes-v-large-length;
-        padding-top: $sizes-medium-length;
-        border-top: $sizes-thin-thickness dashed $colors-fg-color;
+        margin-top: $text-wide-gap;
+        padding-top: $text-medium-gap;
+        border-top: $sizes-thin-line dashed $colors-fg-color;
     }
 
     @media print {
