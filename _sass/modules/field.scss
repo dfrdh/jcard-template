@@ -4,39 +4,34 @@
 //     base/config.scss
 
 
-$field-label-width: 120px;
-$field-text-width: 300px;
-$field-textarea-width: 300px;
-$field-textarea-height: 100px;
-$field-number-width: 100px;
+$field-label-width: 8em;
 
 .field {
-    margin: $sizes-v-small-length 0;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: top;
+    margin-bottom: $sizes-v-small-length;
 
     &-label {
-        display: inline-block;
+        flex: none;
         width: $field-label-width;
-        padding-right: $sizes-small-length;
+        margin: $text-space-gap $text-narrow-gap $text-space-gap 0;
         text-align: right;
-        vertical-align: baseline;
     }
 
     &-textarea {
-        vertical-align: top; 
-        width: $field-textarea-width;
-        height: $field-textarea-height;
+        flex: auto;
+        width: 0%; // override width inferred by "cols" attribute
     }
     &-input {
-        &[type=text] {
-            vertical-align: baseline; 
-            width: $field-text-width;
-        }
-        &[type=number] {
-            vertical-align: baseline; 
-            width: $field-number-width;
+        flex: none;
+
+        &[type=text], &[type=number], &[type=file] {
+            flex: auto;
+            width: 0%; // override width inferred by "size" attribute
         }
         &[type=checkbox] {
-            vertical-align: bottom;
+            align-self: center;
         }
     }
 }

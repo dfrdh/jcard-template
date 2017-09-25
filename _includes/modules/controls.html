@@ -6,27 +6,48 @@
 {%- endcomment -%}
 
 
-<form class="controls">
+<form id="controls" class="controls">
     <fieldset>
         <legend>Layout</legend>
-        {% include modules/field.html type="number" attrs='min="0" step="0.1"' class="controls-title-size" label="Title Size" %}
-        {% include modules/field.html type="number" attrs='min="0" step="0.1"' class="controls-track-size" label="Track Size" %}
-        {% include modules/field.html type="number" attrs='min="0" step="0.1"' class="controls-type-size" label="Type Size" %}
-        {% include modules/field.html type="number" attrs='min="0" step="0.1"' class="controls-note-size" label="Note Size" %}
-        {% include modules/field.html type="number" attrs='min="0" step="0.1"' class="controls-back-size" label="Back Size" %}
-        {% include modules/field.html type="checkbox" class="controls-short-back" label="Short Back" %}
+        <div class="columns">
+            <div class="columns-column">
+                {% assign id = include.id + "-" %}
+                {% include modules/field.html id="controls-title-size" type="number" attrs='min="0" step="0.1"' label="Title Size" %}
+                {% include modules/field.html id="controls-track-size" type="number" attrs='min="0" step="0.1"' label="Track Size" %}
+            </div>
+            <div class="columns-column">
+                {% include modules/field.html id="controls-type-size" type="number" attrs='min="0" step="0.1"' label="Type Size" %}
+                {% include modules/field.html id="controls-note-size" type="number" attrs='min="0" step="0.1"' label="Note Size" %}
+            </div>
+            <div class="columns-column">
+                {% include modules/field.html id="controls-back-size" type="number" attrs='min="0" step="0.1"' label="Back Size" %}
+                {% include modules/field.html id="controls-short-back" type="checkbox" label="Short Back" %}
+            </div>
+        </div>
     </fieldset>
     <fieldset>
         <legend>Content</legend>
-        {% include modules/field.html type="color" class="controls-card-color" label="Card Color" %}
-        {% include modules/field.html type="color" class="controls-text-color" label="Text Color" %}
-        {% include modules/field.html type="file" attrs='accept="image/*"' class="controls-cover" label="Cover" %}
-        {% include modules/field.html type="text" class="controls-title" label="Title" %}
-        {% include modules/field.html type="text" class="controls-subtitle" label="Subtitle" %}
-        {% include modules/field.html type="text" class="controls-type" label="Type" %}
-        {% include modules/field.html type="text" class="controls-note-upper" label="Note Upper" %}
-        {% include modules/field.html type="text" class="controls-note-lower" label="Note Lower" %}
-        {% include modules/field.html type="textarea" class="controls-side-a" label="Side A" %}
-        {% include modules/field.html type="textarea" class="controls-side-b" label="Side B" %}
+        <div class="columns">
+            <div class="columns-column">
+                <div class="columns">
+                    <div class="columns-column">
+                        {% include modules/field.html id="controls-card-color" type="color" label="Card Color" %}
+                    </div>
+                    <div class="columns-column">
+                        {% include modules/field.html id="controls-text-color" type="color" label="Text Color" %}
+                    </div>
+                </div>
+                {% include modules/field.html id="controls-cover" type="file" attrs='accept="image/*"' label="Cover" %}
+                {% include modules/field.html id="controls-title" type="text" label="Title" %}
+                {% include modules/field.html id="controls-subtitle" type="text" label="Subtitle" %}
+                {% include modules/field.html id="controls-type" type="text" label="Type" %}
+                {% include modules/field.html id="controls-note-upper" type="text" label="Note Upper" %}
+                {% include modules/field.html id="controls-note-lower" type="text" label="Note Lower" %}
+            </div>
+            <div class="columns-column">
+                {% include modules/field.html id="controls-side-a" type="textarea" attrs='rows="5"' label="Side A" %}
+                {% include modules/field.html id="controls-side-b" type="textarea" attrs='rows="5"' label="Side B" %}
+            </div>
+        </div>
     </fieldset>
 </form>

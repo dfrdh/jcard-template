@@ -4,24 +4,25 @@
 var jcard = (function() {
     // find input elements in the controls module
     function findInputs(controls) {
+        var id = controls.id;
         return {
-            titleSize:  controls.querySelector('.controls-title-size'),
-            trackSize:  controls.querySelector('.controls-track-size'),
-            typeSize:   controls.querySelector('.controls-type-size'),
-            noteSize:   controls.querySelector('.controls-note-size'),
-            backSize:   controls.querySelector('.controls-back-size'),
-            shortBack:  controls.querySelector('.controls-short-back'),
+            titleSize:  document.querySelector('#' + id + '-title-size'),
+            trackSize:  document.querySelector('#' + id + '-track-size'),
+            typeSize:   document.querySelector('#' + id + '-type-size'),
+            noteSize:   document.querySelector('#' + id + '-note-size'),
+            backSize:   document.querySelector('#' + id + '-back-size'),
+            shortBack:  document.querySelector('#' + id + '-short-back'),
 
-            cardColor:  controls.querySelector('.controls-card-color'),
-            textColor:  controls.querySelector('.controls-text-color'),
-            cover:      controls.querySelector('.controls-cover'),
-            title:      controls.querySelector('.controls-title'),
-            subtitle:   controls.querySelector('.controls-subtitle'),
-            type:       controls.querySelector('.controls-type'),
-            noteUpper:  controls.querySelector('.controls-note-upper'),
-            noteLower:  controls.querySelector('.controls-note-lower'),
-            sideA:      controls.querySelector('.controls-side-a'),
-            sideB:      controls.querySelector('.controls-side-b')
+            cardColor:  document.querySelector('#' + id + '-card-color'),
+            textColor:  document.querySelector('#' + id + '-text-color'),
+            cover:      document.querySelector('#' + id + '-cover'),
+            title:      document.querySelector('#' + id + '-title'),
+            subtitle:   document.querySelector('#' + id + '-subtitle'),
+            type:       document.querySelector('#' + id + '-type'),
+            noteUpper:  document.querySelector('#' + id + '-note-upper'),
+            noteLower:  document.querySelector('#' + id + '-note-lower'),
+            sideA:      document.querySelector('#' + id + '-side-a'),
+            sideB:      document.querySelector('#' + id + '-side-b')
         }
     }
 
@@ -188,10 +189,9 @@ var jcard = (function() {
     }
 
     return {
-        init: function(selector, fields) {
-            var root = document.querySelector(selector);
-            var inputs = findInputs(root.querySelector('.controls'));
-            var outputs = findOutputs(root.querySelector('.template'));
+        init: function(templateSelector, controlsSelector, fields) {
+            var inputs = findInputs(document.querySelector(controlsSelector));
+            var outputs = findOutputs(document.querySelector(templateSelector));
 
             addListeners(inputs, outputs);
             populate(inputs, fields);

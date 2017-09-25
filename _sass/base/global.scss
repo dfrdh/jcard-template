@@ -81,7 +81,7 @@ input, select, textarea, button {
     font-family: inherit;
     font-size: inherit;
 }
-input[type=text], input[type=number], textarea {
+textarea, input[type=text], input[type=number] {
     padding: $sizes-vv-small-length;
     border: $sizes-thin-thickness solid $colors-accent-color;
 }

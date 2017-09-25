@@ -3,8 +3,8 @@
     The type of form field can be 'textarea' or any <input> type.
 
     Parameters:
+        id:     input element id
         type:   field type
-        class:  input element class
         label:  label text
         attrs:  additional input attributes
 {%- endcomment -%}
@@ -13,14 +13,21 @@
 <div class="field">
     <label class="field-label" for="{{ include.id }}">{{- include.label -}}</label>
 {%- if include.type == "textarea" -%}
-    <textarea class="{{ include.class }} field-textarea"></textarea>
+    <textarea
+        id="{{ include.id }}"
+        class="field-textarea"
+    {%- if include.attrs %}
+        {{ include.attrs }}
+    {%- endif %}
+    ></textarea>
 {%- else -%}
     <input
-        class="{{ include.class }} field-input"
+        id="{{ include.id }}"
+        class="field-input"
         type="{{ include.type }}"
     {%- if include.attrs %}
         {{ include.attrs }}
     {%- endif %}
     />
-{%- endif %}
+{%- endif -%}
 </div>
