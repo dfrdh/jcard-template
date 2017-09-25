@@ -21,6 +21,10 @@ $printable-mark-thickness: 1pt;
     margin: $printable-mark-length;
     background-color: white;
 
+    // print exactly as displayed
+    -webkit-print-color-adjust: exact;
+    color-adjust: exact;
+
     &-bleed {
         position: absolute;
         top: -$printable-bleed-width;
