@@ -69,7 +69,7 @@ a {
 
 /* forms */
 fieldset {
-    border: $sizes-thin-line solid $colors-accent-color;
+    border: $sizes-line solid $colors-accent-color;
     margin: 0 0 $text-narrow-gap;
     padding: $text-narrow-gap;
 }
@@ -83,5 +83,5 @@ input, select, textarea, button {
 }
 textarea, input[type=text], input[type=number] {
     padding: $text-space-gap;
-    border: $sizes-thin-line solid $colors-accent-color;
+    border: $sizes-line solid $colors-accent-color;
 }

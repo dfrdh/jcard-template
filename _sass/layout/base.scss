@@ -15,12 +15,12 @@
     &-header {
         margin-bottom: $text-wide-gap;
         padding-bottom: $text-medium-gap;
-        border-bottom: $sizes-thin-line dashed $colors-fg-color;
+        border-bottom: $sizes-line dashed $colors-fg-color;
     }
     &-footer {
         margin-top: $text-wide-gap;
         padding-top: $text-medium-gap;
-        border-top: $sizes-thin-line dashed $colors-fg-color;
+        border-top: $sizes-line dashed $colors-fg-color;
     }
 
     @media print {
