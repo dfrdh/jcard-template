@@ -5,6 +5,7 @@
 
 
 $field-label-width: 6em;
+$field-small-max-width: 6em;
 
 .field {
     display: flex;
@@ -26,9 +27,12 @@ $field-label-width: 6em;
     &-input {
         flex: none;
 
-        &[type=text], &[type=number], &[type=file] {
+        &[type=text], &[type=number], &[type=file], &[type=color] {
             flex: auto;
             width: 0%; // override width inferred by "size" attribute
+        }
+        &[type=number], &[type=color] {
+            max-width: $field-small-max-width;
         }
         &[type=checkbox] {
             align-self: center;

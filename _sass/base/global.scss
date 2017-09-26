@@ -82,6 +82,7 @@ input, select, textarea, button {
     font-size: inherit;
 }
 textarea, input[type=text], input[type=number] {
-    padding: $text-space-gap;
     border: $sizes-line solid $colors-accent-color;
 }
+textarea, input[type=text] { padding: $text-space-gap; }
+input[type=number] { padding-left: $text-space-gap; }

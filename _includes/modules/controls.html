@@ -16,18 +16,28 @@
         <div class="columns">
             <div class="columns-column">
                 {% include modules/field.html id="controls-card-color" type="color" label="Card Color" %}
-                {% include modules/field.html id="controls-text-color" type="color" label="Text Color" %}
             </div>
             <div class="columns-column">
                 {% include modules/field.html id="controls-title-size" type="number" attrs='min="0" step="0.1"' label="Title Size" %}
-                {% include modules/field.html id="controls-track-size" type="number" attrs='min="0" step="0.1"' label="Track Size" %}
             </div>
             <div class="columns-column">
                 {% include modules/field.html id="controls-type-size" type="number" attrs='min="0" step="0.1"' label="Type Size" %}
-                {% include modules/field.html id="controls-side-size" type="number" attrs='min="0" step="0.1"' label="Side Size" %}
             </div>
             <div class="columns-column">
                 {% include modules/field.html id="controls-note-size" type="number" attrs='min="0" step="0.1"' label="Note Size" %}
+            </div>
+        </div>
+        <div class="columns">
+            <div class="columns-column">
+                {% include modules/field.html id="controls-text-color" type="color" label="Text Color" %}
+            </div>
+            <div class="columns-column">
+                {% include modules/field.html id="controls-track-size" type="number" attrs='min="0" step="0.1"' label="Track Size" %}
+            </div>
+            <div class="columns-column">
+                {% include modules/field.html id="controls-side-size" type="number" attrs='min="0" step="0.1"' label="Side Size" %}
+            </div>
+            <div class="columns-column">
                 {% include modules/field.html id="controls-short-back" type="checkbox" label="Short Back" %}
             </div>
         </div>
