@@ -4,74 +4,77 @@
 var jcard = (function() {
     // find input elements in the controls module
     function findInputs(controls) {
-        var id = controls.id;
+        var prefix = '#' + controls.id + '-';
         return {
-            titleSize:  document.querySelector('#' + id + '-title-size'),
-            trackSize:  document.querySelector('#' + id + '-track-size'),
-            typeSize:   document.querySelector('#' + id + '-type-size'),
-            noteSize:   document.querySelector('#' + id + '-note-size'),
-            backSize:   document.querySelector('#' + id + '-back-size'),
-            shortBack:  document.querySelector('#' + id + '-short-back'),
+            print2:     document.querySelector(prefix + 'print-2'),
 
-            cardColor:  document.querySelector('#' + id + '-card-color'),
-            textColor:  document.querySelector('#' + id + '-text-color'),
-            cover:      document.querySelector('#' + id + '-cover'),
-            title:      document.querySelector('#' + id + '-title'),
-            subtitle:   document.querySelector('#' + id + '-subtitle'),
-            type:       document.querySelector('#' + id + '-type'),
-            noteUpper:  document.querySelector('#' + id + '-note-upper'),
-            noteLower:  document.querySelector('#' + id + '-note-lower'),
-            sideA:      document.querySelector('#' + id + '-side-a'),
-            sideB:      document.querySelector('#' + id + '-side-b')
+            cardColor:  document.querySelector(prefix + 'card-color'),
+            textColor:  document.querySelector(prefix + 'text-color'),
+            titleSize:  document.querySelector(prefix + 'title-size'),
+            typeSize:   document.querySelector(prefix + 'type-size'),
+            noteSize:   document.querySelector(prefix + 'note-size'),
+            trackSize:  document.querySelector(prefix + 'track-size'),
+            sideSize:   document.querySelector(prefix + 'side-size'),
+            shortBack:  document.querySelector(prefix + 'short-back'),
+
+            cover:      document.querySelector(prefix + 'cover'),
+            title:      document.querySelector(prefix + 'title'),
+            subtitle:   document.querySelector(prefix + 'subtitle'),
+            type:       document.querySelector(prefix + 'type'),
+            noteUpper:  document.querySelector(prefix + 'note-upper'),
+            noteLower:  document.querySelector(prefix + 'note-lower'),
+            sideA:      document.querySelector(prefix + 'side-a'),
+            sideB:      document.querySelector(prefix + 'side-b')
         }
     }
 
     // find output elements in the template module
     function findOutputs(template) {
+        var prefix = '.template-';
         return {
             root:           template,
-            boundaries:     template.querySelector('.template-boundaries'),
-            back:           template.querySelector('.template-back'),
-            cover:          template.querySelector('.template-cover'),
+            boundaries:     template.querySelector(prefix + 'boundaries'),
+            cover:          template.querySelector(prefix + 'cover'),
             titleGroups:    [
-                template.querySelector('.template-front-title-group'),
-                template.querySelector('.template-spine-title-group')],
+                template.querySelector(prefix + 'front-title-group'),
+                template.querySelector(prefix + 'spine-title-group')],
             titles:         [
-                template.querySelector('.template-front-title'),
-                template.querySelector('.template-spine-title')],    
+                template.querySelector(prefix + 'front-title'),
+                template.querySelector(prefix + 'spine-title')],    
             subtitles:      [
-                template.querySelector('.template-front-subtitle'),
-                template.querySelector('.template-spine-subtitle')],
-            tracks:         template.querySelector('.template-tracks'),
-            type:           template.querySelector('.template-type'),
-            noteGroup:      template.querySelector('.template-note-group'),
-            noteUpper:      template.querySelector('.template-note-upper'),
-            noteLower:      template.querySelector('.template-note-lower'),
-            sideA:          template.querySelector('.template-side-a'),
-            sideB:          template.querySelector('.template-side-b')
+                template.querySelector(prefix + 'front-subtitle'),
+                template.querySelector(prefix + 'spine-subtitle')],
+            tracks:         template.querySelector(prefix + 'tracks'),
+            type:           template.querySelector(prefix + 'type'),
+            noteGroup:      template.querySelector(prefix + 'note-group'),
+            noteUpper:      template.querySelector(prefix + 'note-upper'),
+            noteLower:      template.querySelector(prefix + 'note-lower'),
+            sideA:          template.querySelector(prefix + 'side-a'),
+            sideB:          template.querySelector(prefix + 'side-b')
         }
     }
 
-    // add listeners to inputs that update outputs
-    function addListeners(inputs, outputs) {
+    // add listeners to inputs that update j-card outputs
+    function addJCardListeners(inputs, outputs) {
         // layout
-        outputs.titleGroups.map(function(groupOutput) {
+        addColorListener(inputs.textColor, outputs.root, 'color');
+        addColorListener(inputs.cardColor, outputs.boundaries, 'backgroundColor');
+        outputs.titleGroups.forEach(function(groupOutput) {
             addSizeListener(inputs.titleSize, groupOutput);
         });
-        addSizeListener(inputs.trackSize, outputs.tracks);
         addSizeListener(inputs.typeSize, outputs.type);
         addSizeListener(inputs.noteSize, outputs.noteGroup);
-        addSizeListener(inputs.backSize, outputs.back);
+        addSizeListener(inputs.trackSize, outputs.tracks);
+        addSizeListener(inputs.sideSize, outputs.sideA);
+        addSizeListener(inputs.sideSize, outputs.sideB);
         addToggleListener(inputs.shortBack, outputs.root, 'short-back');
 
         // content
-        addColorListener(inputs.textColor, outputs.root, 'color');
-        addColorListener(inputs.cardColor, outputs.boundaries, 'backgroundColor');
         addImageListener(inputs.cover, outputs.cover);
-        outputs.titles.map(function(titleOutput) {
+        outputs.titles.forEach(function(titleOutput) {
             addTextListener(inputs.title, titleOutput);
         });
-        outputs.subtitles.map(function(subtitleOutput) {
+        outputs.subtitles.forEach(function(subtitleOutput) {
             addTextListener(inputs.subtitle, subtitleOutput);
         });
         addTextListener(inputs.type, outputs.type);
@@ -82,19 +85,24 @@ var jcard = (function() {
         addTracksListener([inputs.sideA, inputs.sideB], outputs.tracks);
     }
 
+    // add listeners to inputs that toggle option classes
+    function addOptionListeners(inputs, root) {
+        addToggleListener(inputs.print2, root, 'print-2');
+    }
+
     // populate inputs with field values or defaults
     function populate(inputs, fields) {
         // layout
+        inputs.cardColor.value = fields.card_color || 'white';
+        inputs.textColor.value = fields.text_color || 'black';
         inputs.titleSize.value = fields.title_size || 12;
-        inputs.trackSize.value = fields.track_size || 9;
         inputs.typeSize.value = fields.type_size || 10;
         inputs.noteSize.value = fields.note_size || 10;
-        inputs.backSize.value = fields.back_size || 8;
+        inputs.trackSize.value = fields.track_size || 9;
+        inputs.sideSize.value = fields.side_size || 8;
         inputs.shortBack.checked = fields.short_back !== undefined ? fields.short_back : false;
 
         // content
-        inputs.cardColor.value = fields.card_color || 'white';
-        inputs.textColor.value = fields.text_color || 'black';
         inputs.title.value = fields.title || '';
         inputs.subtitle.value = fields.subtitle || '';
         inputs.type.value = fields.type || '';
@@ -108,11 +116,11 @@ var jcard = (function() {
     function update(inputs) {
         for (name in inputs) {
             var input = inputs[name];
-            var event;
+            var event = document.createEvent('Event');
             if (input.type === 'checkbox' || input.type === 'file') {
-                event = new Event('change');
+                event.initEvent('change', true, true);
             } else {
-                event = new Event('input');
+                event.initEvent('input', true, true);
             }
             input.dispatchEvent(event);
         }
@@ -189,11 +197,29 @@ var jcard = (function() {
     }
 
     return {
-        init: function(templateSelector, controlsSelector, fields) {
-            var inputs = findInputs(document.querySelector(controlsSelector));
-            var outputs = findOutputs(document.querySelector(templateSelector));
+        init: function(selector, fields) {
+            var root = document.querySelector(selector);
 
-            addListeners(inputs, outputs);
+            // find controls
+            var controls = root.querySelector('.controls');
+            var inputs = findInputs(controls);
+
+            // find preview template
+            var previewTemplate = root.querySelector('.jcard-preview .template');
+            var previewOutputs = findOutputs(previewTemplate);
+
+            // create duplicate template to be shown only when printed
+            var dupeContainer = root.querySelector('.jcard-duplicate');
+            var dupeTemplate = previewTemplate.cloneNode(true);
+            var dupeOutputs = findOutputs(dupeTemplate);
+            dupeContainer.appendChild(dupeTemplate);
+
+            // register listeners
+            addOptionListeners(inputs, root);
+            addJCardListeners(inputs, previewOutputs);
+            addJCardListeners(inputs, dupeOutputs);
+
+            // initialize inputs and templates
             populate(inputs, fields);
             update(inputs);
         }
