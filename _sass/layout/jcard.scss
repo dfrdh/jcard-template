@@ -9,16 +9,21 @@
     text-align: center;
     &-template, &-controls { text-align: initial; }
 
-    &-template {
+    &-preview {
         display: inline-block;
         margin-bottom: $text-wide-gap;
     }
+    &-duplicate { display: none; }
 
     @media print {
         text-align: initial;
 
-        &-template { margin: 0; }
+        &-preview { margin-bottom: $text-narrow-gap; }
         &-controls { display: none; }
+
+        // show duplicate when .print-2 is set
+        &.print-2 &-duplicate {
+            display: inline-block;
+        }
     }
 }
-
