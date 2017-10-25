@@ -7,7 +7,7 @@
 .jcard {
     // center immediate children
     text-align: center;
-    &-template, &-controls { text-align: initial; }
+    &-preview, &-duplicate, &-controls { text-align: initial; }
 
     &-preview {
         display: inline-block;
