@@ -4,56 +4,54 @@
 var jcard = (function() {
     // find input elements in the controls module
     function findInputs(controls) {
-        var prefix = '#' + controls.id + '-';
         return {
-            print2:     document.querySelector(prefix + 'print-2'),
-            shortBack:  document.querySelector(prefix + 'short-back'),
+            print2:     controls.querySelector('#controls-print-2'),
+            shortBack:  controls.querySelector('#controls-short-back'),
 
-            cover:      document.querySelector(prefix + 'cover'),
-            cardColor:  document.querySelector(prefix + 'card-color'),
-            textColor:  document.querySelector(prefix + 'text-color'),
+            cover:      controls.querySelector('#controls-cover'),
+            cardColor:  controls.querySelector('#controls-card-color'),
+            textColor:  controls.querySelector('#controls-text-color'),
 
-            title:      document.querySelector(prefix + 'title'),
-            subtitle:   document.querySelector(prefix + 'subtitle'),
-            titleSize:  document.querySelector(prefix + 'title-size'),
+            title:      controls.querySelector('#controls-title'),
+            subtitle:   controls.querySelector('#controls-subtitle'),
+            titleSize:  controls.querySelector('#controls-title-size'),
 
-            type:       document.querySelector(prefix + 'type'),
-            typeSize:   document.querySelector(prefix + 'type-size'),
+            type:       controls.querySelector('#controls-type'),
+            typeSize:   controls.querySelector('#controls-type-size'),
 
-            noteUpper:  document.querySelector(prefix + 'note-upper'),
-            noteLower:  document.querySelector(prefix + 'note-lower'),
-            noteSize:   document.querySelector(prefix + 'note-size'),
+            noteUpper:  controls.querySelector('#controls-note-upper'),
+            noteLower:  controls.querySelector('#controls-note-lower'),
+            noteSize:   controls.querySelector('#controls-note-size'),
 
-            sideA:      document.querySelector(prefix + 'side-a'),
-            sideB:      document.querySelector(prefix + 'side-b'),
-            trackSize:  document.querySelector(prefix + 'track-size'),
-            backSize:   document.querySelector(prefix + 'back-size')
+            sideA:      controls.querySelector('#controls-side-a'),
+            sideB:      controls.querySelector('#controls-side-b'),
+            trackSize:  controls.querySelector('#controls-track-size'),
+            backSize:   controls.querySelector('#controls-back-size')
         }
     }
 
     // find output elements in the template module
     function findOutputs(template) {
-        var prefix = '.template-';
         return {
             root:           template,
-            boundaries:     template.querySelector(prefix + 'boundaries'),
-            cover:          template.querySelector(prefix + 'cover'),
+            boundaries:     template.querySelector('.template-boundaries'),
+            cover:          template.querySelector('.template-cover'),
             titleGroups:    [
-                template.querySelector(prefix + 'front-title-group'),
-                template.querySelector(prefix + 'spine-title-group')],
+                template.querySelector('.template-front-title-group'),
+                template.querySelector('.template-spine-title-group')],
             titles:         [
-                template.querySelector(prefix + 'front-title'),
-                template.querySelector(prefix + 'spine-title')],    
+                template.querySelector('.template-front-title'),
+                template.querySelector('.template-spine-title')],    
             subtitles:      [
-                template.querySelector(prefix + 'front-subtitle'),
-                template.querySelector(prefix + 'spine-subtitle')],
-            tracks:         template.querySelector(prefix + 'tracks'),
-            type:           template.querySelector(prefix + 'type'),
-            noteGroup:      template.querySelector(prefix + 'note-group'),
-            noteUpper:      template.querySelector(prefix + 'note-upper'),
-            noteLower:      template.querySelector(prefix + 'note-lower'),
-            sideA:          template.querySelector(prefix + 'side-a'),
-            sideB:          template.querySelector(prefix + 'side-b')
+                template.querySelector('.template-front-subtitle'),
+                template.querySelector('.template-spine-subtitle')],
+            tracks:         template.querySelector('.template-tracks'),
+            type:           template.querySelector('.template-type'),
+            noteGroup:      template.querySelector('.template-note-group'),
+            noteUpper:      template.querySelector('.template-note-upper'),
+            noteLower:      template.querySelector('.template-note-lower'),
+            sideA:          template.querySelector('.template-side-a'),
+            sideB:          template.querySelector('.template-side-b')
         }
     }
 
@@ -208,7 +206,7 @@ var jcard = (function() {
             var root = document.querySelector(selector);
 
             // find controls
-            var controls = root.querySelector('.controls');
+            var controls = root.querySelector('#controls');
             var inputs = findInputs(controls);
 
             // find preview template
