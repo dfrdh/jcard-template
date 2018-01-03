@@ -6,6 +6,7 @@ var jcard = (function() {
     function findInputs(controls) {
         return {
             print2:     controls.querySelector('#controls-print-2'),
+            forceCaps:  controls.querySelector('#controls-force-caps'),
             shortBack:  controls.querySelector('#controls-short-back'),
 
             cover:      controls.querySelector('#controls-cover'),
@@ -63,6 +64,7 @@ var jcard = (function() {
     // add listeners to inputs that update j-card outputs
     function addJCardListeners(inputs, outputs) {
         addToggleListener(inputs.shortBack, outputs.root, 'short-back');
+        addToggleListener(inputs.forceCaps, outputs.root, 'force-caps');
 
         addImageListener(inputs.cover, outputs.cover);
         addColorListener(inputs.textColor, outputs.root, 'color');

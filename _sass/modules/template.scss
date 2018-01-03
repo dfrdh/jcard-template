@@ -26,7 +26,6 @@ $template-track-line-height: 1.2;
 
     width: $template-width;
     height: $template-height;
-    text-transform: uppercase;
     line-height: $template-line-height;
 
     // crop and bleed boundaries
@@ -164,4 +163,7 @@ $template-track-line-height: 1.2;
     }
     &.short-back &-side-a::before { content: $template-side-a-text + $template-side-sep; }
     &.short-back &-side-b::before { content: $template-side-b-text + $template-side-sep; }
+
+    // force all caps
+    &.force-caps { text-transform: uppercase; }
 }
