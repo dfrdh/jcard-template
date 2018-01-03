@@ -11,7 +11,7 @@ $field-small-max-width: 6em;
     display: flex;
     flex-flow: row nowrap;
     align-items: top;
-    margin-bottom: $text-space-gap;
+    margin: $text-space-gap 0;
 
     &-label {
         flex: none;

@@ -58,6 +58,11 @@ blockquote {
     margin-left: $text-wide-gap;
     margin-right: $text-wide-gap;
 }
+hr {
+    border: none;
+    border-top: $sizes-line dashed $colors-accent-color;
+    margin: $text-narrow-gap 0;
+}
 
 /* links */
 a {
